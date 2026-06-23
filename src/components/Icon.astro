@@ -1,0 +1,245 @@
+---
+// Centralized icon set. Usage: <Icon name="phone" class="w-5 h-5" />
+// Stroke icons inherit currentColor; "star" and "sparkle" are filled.
+interface Props {
+  name: string;
+  class?: string;
+  [key: string]: unknown;
+}
+const { name, class: className = "w-5 h-5", ...rest } = Astro.props;
+
+const filled = new Set(["star", "sparkle"]);
+const isFilled = filled.has(name);
+---
+
+<svg
+  class={className}
+  viewBox="0 0 24 24"
+  fill={isFilled ? "currentColor" : "none"}
+  stroke={isFilled ? undefined : "currentColor"}
+  stroke-width={isFilled ? undefined : 2}
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+  {...rest}
+>
+  {name === "hammer" && (
+    <Fragment>
+      <path d="M15 12l-8.5 8.5a2.12 2.12 0 0 1-3-3L12 9" />
+      <path d="M17.64 15L22 10.64" />
+      <path d="M20.91 11.7l-1.25-1.25c-.6-.6-.93-1.4-.93-2.25v-.86L16.01 4.6a5.56 5.56 0 0 0-3.94-1.64H9l.92.82A6.18 6.18 0 0 1 12 8.4v1.56l2 2h2.47l2.26 1.91z" />
+    </Fragment>
+  )}
+  {/* Common service-trade icons (towing/auto/utility). Add more per trade as needed. */}
+  {name === "truck" && (
+    <Fragment>
+      <path d="M10 17h4V5H2v12h3" />
+      <path d="M20 17h2v-3.34a4 4 0 0 0-1.17-2.83L19 9h-5v8h1" />
+      <circle cx="7.5" cy="17.5" r="2.5" />
+      <circle cx="17.5" cy="17.5" r="2.5" />
+    </Fragment>
+  )}
+  {name === "battery" && (
+    <Fragment>
+      <rect x="2" y="7" width="16" height="10" rx="2" />
+      <path d="M22 11v2" />
+      <path d="M10 9.5l-2 3h3l-2 3" />
+    </Fragment>
+  )}
+  {name === "key" && (
+    <Fragment>
+      <circle cx="7.5" cy="15.5" r="5.5" />
+      <path d="M11.4 11.6 21 2" />
+      <path d="M15.5 7.5l3 3L22 7l-3-3" />
+    </Fragment>
+  )}
+  {name === "tire" && (
+    <Fragment>
+      <circle cx="12" cy="12" r="9" />
+      <circle cx="12" cy="12" r="3.5" />
+      <path d="M12 3v5M12 16v5M3 12h5M16 12h5" />
+    </Fragment>
+  )}
+  {name === "fuel" && (
+    <Fragment>
+      <line x1="3" y1="22" x2="15" y2="22" />
+      <line x1="4" y1="9" x2="14" y2="9" />
+      <path d="M14 22V4a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v18" />
+      <path d="M14 13h2a2 2 0 0 1 2 2v2a2 2 0 0 0 4 0V9.83a2 2 0 0 0-.59-1.42L18 5" />
+    </Fragment>
+  )}
+  {name === "wrench" && (
+    <path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.4-.6-.6-2.4 2.5-2.5z" />
+  )}
+  {name === "droplet" && (
+    <path d="M12 2.7l5.7 5.7a8 8 0 1 1-11.4 0z" />
+  )}
+  {/* Auto-glass icons */}
+  {name === "windshield" && (
+    <Fragment>
+      <path d="M5 17 L7 8a2 2 0 0 1 2-1.5h6a2 2 0 0 1 2 1.5l2 9Z" />
+      <path d="M12 6.5V17" />
+      <path d="M8 14l3-3.5" />
+    </Fragment>
+  )}
+  {name === "glass-crack" && (
+    <Fragment>
+      <rect x="4" y="4" width="16" height="16" rx="2.5" />
+      <path d="M12 4v5l-2.5 3 2.5 2.5-1.5 3.5" />
+      <path d="M9.5 12l-2.5 1.5" />
+      <path d="M14 12.5l3-1" />
+    </Fragment>
+  )}
+  {name === "crosshair" && (
+    <Fragment>
+      <circle cx="12" cy="12" r="9" />
+      <circle cx="12" cy="12" r="1.5" />
+      <path d="M12 3v3M12 18v3M3 12h3M18 12h3" />
+    </Fragment>
+  )}
+  {name === "rear-glass" && (
+    <Fragment>
+      <rect x="3.5" y="7" width="17" height="10" rx="2.5" />
+      <path d="M6 10.5h12M6 12.5h12M6 14.5h12" />
+    </Fragment>
+  )}
+  {name === "car" && (
+    <Fragment>
+      <path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2" />
+      <circle cx="7" cy="17" r="2" />
+      <path d="M9 17h6" />
+      <circle cx="17" cy="17" r="2" />
+    </Fragment>
+  )}
+  {name === "trowel" && (
+    <Fragment>
+      <rect x="2" y="14.5" width="20" height="3" rx="1.5" />
+      <path d="M9.5 14.5v-1.8a2.5 2.5 0 0 1 5 0v1.8" />
+    </Fragment>
+  )}
+  {name === "mixer-truck" && (
+    <Fragment>
+      <circle cx="7" cy="18.2" r="1.9" />
+      <circle cx="16.5" cy="18.2" r="1.9" />
+      <path d="M2.5 16.3h16.5" />
+      <path d="M2.5 16.3v-4.8h3l1.9 2.6v2.2" />
+      <ellipse cx="13" cy="9.6" rx="6.2" ry="4.2" transform="rotate(-18 13 9.6)" />
+      <path d="M10.6 6 12.2 13" transform="rotate(-18 13 9.6)" />
+      <path d="M13.4 6 15 13" transform="rotate(-18 13 9.6)" />
+      <path d="M18.7 12.2l2.5 2" />
+    </Fragment>
+  )}
+  {name === "move-up" && (
+    <Fragment>
+      <path d="M8 6l4-4 4 4" />
+      <path d="M12 2v12" />
+      <path d="M4 22h16" />
+    </Fragment>
+  )}
+  {name === "route" && (
+    <Fragment>
+      <circle cx="6" cy="19" r="3" />
+      <path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15" />
+      <circle cx="18" cy="5" r="3" />
+    </Fragment>
+  )}
+  {name === "grid" && (
+    <Fragment>
+      <rect width="18" height="18" x="3" y="3" rx="2" />
+      <path d="M3 9h18" />
+      <path d="M3 15h18" />
+      <path d="M9 3v18" />
+      <path d="M15 3v18" />
+    </Fragment>
+  )}
+  {name === "layers" && (
+    <Fragment>
+      <path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z" />
+      <path d="M22 17.65l-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65" />
+      <path d="M22 12.65l-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65" />
+    </Fragment>
+  )}
+  {name === "building" && (
+    <Fragment>
+      <path d="M3 21h18" />
+      <path d="M5 21V7l8-4v18" />
+      <path d="M19 21V11l-6-4" />
+    </Fragment>
+  )}
+  {name === "phone" && (
+    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13.1a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.62 2.3h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.18 6.18l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+  )}
+  {name === "mail" && (
+    <Fragment>
+      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+      <polyline points="22,6 12,13 2,6" />
+    </Fragment>
+  )}
+  {name === "map-pin" && (
+    <Fragment>
+      <path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 0 1-2.827 0l-4.244-4.243a8 8 0 1 1 11.314 0z" />
+      <path d="M15 11a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+    </Fragment>
+  )}
+  {name === "clock" && (
+    <Fragment>
+      <circle cx="12" cy="12" r="10" />
+      <polyline points="12 6 12 12 16 14" />
+    </Fragment>
+  )}
+  {name === "shield-check" && (
+    <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0 1 12 2.944a11.955 11.955 0 0 1-8.618 3.04A12.02 12.02 0 0 0 3 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+  )}
+  {name === "check-circle" && (
+    <path d="M9 12l2 2 4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0z" />
+  )}
+  {name === "badge-check" && (
+    <Fragment>
+      <path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z" />
+      <path d="M9 12l2 2 4-4" />
+    </Fragment>
+  )}
+  {name === "award" && (
+    <Fragment>
+      <circle cx="12" cy="8" r="6" />
+      <path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11" />
+    </Fragment>
+  )}
+  {name === "users" && (
+    <Fragment>
+      <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+      <circle cx="9" cy="7" r="4" />
+      <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+      <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+    </Fragment>
+  )}
+  {name === "heart" && (
+    <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+  )}
+  {name === "arrow-right" && (
+    <Fragment>
+      <line x1="5" y1="12" x2="19" y2="12" />
+      <polyline points="12 5 19 12 12 19" />
+    </Fragment>
+  )}
+  {name === "chevron-down" && <polyline points="6 9 12 15 18 9" />}
+  {name === "menu" && (
+    <Fragment>
+      <line x1="3" y1="6" x2="21" y2="6" />
+      <line x1="3" y1="12" x2="21" y2="12" />
+      <line x1="3" y1="18" x2="21" y2="18" />
+    </Fragment>
+  )}
+  {name === "x" && (
+    <Fragment>
+      <line x1="18" y1="6" x2="6" y2="18" />
+      <line x1="6" y1="6" x2="18" y2="18" />
+    </Fragment>
+  )}
+  {name === "star" && (
+    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+  )}
+  {name === "sparkle" && (
+    <path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z" />
+  )}
+</svg>

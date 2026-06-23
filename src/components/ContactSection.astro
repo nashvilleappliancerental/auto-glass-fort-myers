@@ -1,0 +1,179 @@
+---
+import Icon from "./Icon.astro";
+import { SITE, cityState } from "../data/site";
+import { getCollection } from "astro:content";
+
+interface Props {
+  /** Preselect a service in the dropdown (matches a service title). */
+  defaultService?: string;
+  heading?: string;
+  eyebrow?: string;
+}
+const {
+  defaultService = "",
+  heading = "Get your free estimate.",
+  eyebrow = "Contact us",
+} = Astro.props;
+
+const services = (await getCollection("services")).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+---
+
+<section id="contact" class="py-24 sm:py-28">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6">
+    <div class="text-center mb-12 max-w-2xl mx-auto">
+      <p class="text-brand-accent font-bold uppercase tracking-[0.2em] text-xs mb-3">{eyebrow}</p>
+      <h2 class="text-4xl sm:text-5xl font-extrabold tracking-tight leading-[1.05]">{heading}</h2>
+    </div>
+    <div class="grid md:grid-cols-2 lg:grid-cols-[1.1fr_0.9fr] gap-8">
+      <!-- Contact Form — submits to Netlify Forms (no backend). -->
+      <form
+        id="contact-form"
+        name="contact"
+        method="POST"
+        data-netlify="true"
+        netlify-honeypot="bot-field"
+        class="bg-white border border-border/60 p-7 sm:p-10 rounded-3xl shadow-xl shadow-brand-charcoal/5 space-y-5"
+      >
+        <input type="hidden" name="form-name" value="contact" />
+        <p class="hidden" aria-hidden="true">
+          <label>Don't fill this out if you're human: <input name="bot-field" /></label>
+        </p>
+        <div class="grid sm:grid-cols-2 gap-5">
+          <label class="block">
+            <span class="block font-semibold text-sm mb-2">Name <span class="text-brand-accent">*</span></span>
+            <input name="name" required class="w-full bg-brand-cream/50 border border-transparent rounded-xl px-4 py-3.5 focus:outline-none focus:border-brand-accent focus:bg-white transition-colors" />
+          </label>
+          <label class="block">
+            <span class="block font-semibold text-sm mb-2">Phone <span class="text-brand-accent">*</span></span>
+            <input name="phone" type="tel" required class="w-full bg-brand-cream/50 border border-transparent rounded-xl px-4 py-3.5 focus:outline-none focus:border-brand-accent focus:bg-white transition-colors" />
+          </label>
+        </div>
+        <label class="block">
+          <span class="block font-semibold text-sm mb-2">Email</span>
+          <input name="email" type="email" class="w-full bg-brand-cream/50 border border-transparent rounded-xl px-4 py-3.5 focus:outline-none focus:border-brand-accent focus:bg-white transition-colors" />
+        </label>
+        <label class="block">
+          <span class="block font-semibold text-sm mb-2">Service Needed</span>
+          <select name="service" class="w-full bg-brand-cream/50 border border-transparent rounded-xl px-4 py-3.5 focus:outline-none focus:border-brand-accent focus:bg-white transition-colors">
+            <option value="">Select a service…</option>
+            {services.map((s) => (
+              <option selected={s.data.title === defaultService}>{s.data.title}</option>
+            ))}
+            <option>Repair / Other</option>
+          </select>
+        </label>
+        <label class="block">
+          <span class="block font-semibold text-sm mb-2">Project Details</span>
+          <textarea name="message" rows={4} class="w-full bg-brand-cream/50 border border-transparent rounded-xl px-4 py-3.5 focus:outline-none focus:border-brand-accent focus:bg-white transition-colors resize-none" placeholder="Tell us a bit about the project, location, and timing."></textarea>
+        </label>
+        <button type="submit" class="group w-full inline-flex items-center justify-center gap-2 bg-brand-accent hover:bg-brand-accent-dark text-brand-accent-contrast font-bold px-6 py-4 rounded-[var(--radius-btn)] transition-all hover:shadow-2xl hover:shadow-brand-accent/40 hover:-translate-y-0.5">
+          Request My Free Estimate
+          <Icon name="arrow-right" class="w-4 h-4 transition-transform group-hover:translate-x-1" />
+        </button>
+        <div id="form-success" class="hidden p-4 bg-green-50 border border-green-200 rounded-xl text-green-800 text-sm font-medium">
+          Thanks! We'll be in touch within one business day. For faster service, call us at {SITE.phone}.
+        </div>
+        <div id="form-error" class="hidden p-4 bg-red-50 border border-red-200 rounded-xl text-red-800 text-sm font-medium">
+          Something went wrong sending your message. Please call us at {SITE.phone} or email {SITE.email}.
+        </div>
+      </form>
+
+      <!-- Contact Info -->
+      <div class="space-y-5">
+        <div class="relative bg-gradient-to-br from-brand-charcoal to-[oklch(0.20_0.018_250)] text-brand-cream p-8 rounded-3xl overflow-hidden shadow-xl shadow-brand-charcoal/20">
+          <div class="absolute -top-16 -right-16 w-48 h-48 rounded-full bg-brand-accent/20 blur-3xl"></div>
+          <div class="relative">
+            <h3 class="text-2xl font-bold mb-6 tracking-tight">Get in touch</h3>
+            <div class="space-y-5">
+              <div class="flex gap-4">
+                <div class="w-10 h-10 shrink-0 bg-white/10 rounded-xl flex items-center justify-center">
+                  <Icon name="phone" class="w-5 h-5" />
+                </div>
+                <div class="min-w-0">
+                  <div class="text-[10px] uppercase tracking-[0.18em] text-brand-cream/60 mb-1">Call us</div>
+                  <a href={SITE.phoneHref} class="font-display font-bold text-2xl text-brand-accent hover:underline">{SITE.phone}</a>
+                </div>
+              </div>
+              <div class="flex gap-4">
+                <div class="w-10 h-10 shrink-0 bg-white/10 rounded-xl flex items-center justify-center">
+                  <Icon name="mail" class="w-5 h-5" />
+                </div>
+                <div class="min-w-0">
+                  <div class="text-[10px] uppercase tracking-[0.18em] text-brand-cream/60 mb-1">Email</div>
+                  <a href={`mailto:${SITE.email}`} class="text-sm hover:text-brand-accent break-all">{SITE.email}</a>
+                </div>
+              </div>
+              <div class="flex gap-4">
+                <div class="w-10 h-10 shrink-0 bg-white/10 rounded-xl flex items-center justify-center">
+                  <Icon name="map-pin" class="w-5 h-5" />
+                </div>
+                <div class="min-w-0">
+                  <div class="text-[10px] uppercase tracking-[0.18em] text-brand-cream/60 mb-1">Service Area</div>
+                  <div class="text-sm">{cityState} & the surrounding area</div>
+                </div>
+              </div>
+              <div class="flex gap-4">
+                <div class="w-10 h-10 shrink-0 bg-white/10 rounded-xl flex items-center justify-center">
+                  <Icon name="clock" class="w-5 h-5" />
+                </div>
+                <div class="min-w-0">
+                  <div class="text-[10px] uppercase tracking-[0.18em] text-brand-cream/60 mb-1">Hours</div>
+                  {SITE.hours.map((h) => (
+                    <div class="text-sm"><span class={h.time === "Closed" ? "text-brand-cream/60" : ""}>{h.day}: {h.time}</span></div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="bg-brand-accent text-brand-accent-contrast p-6 rounded-3xl shadow-xl shadow-brand-accent/30">
+          <div class="flex items-start gap-3">
+            <div class="w-10 h-10 rounded-full bg-white/15 flex items-center justify-center shrink-0">
+              <Icon name="badge-check" class="w-5 h-5" />
+            </div>
+            <div>
+              <div class="font-bold tracking-tight mb-1">Free, no-pressure quotes</div>
+              <div class="text-white/90 text-sm leading-relaxed">We come out, measure, listen, and send a detailed written estimate — no upsells, no gimmicks.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Contact form — submits to Netlify Forms in the background (AJAX) so we can
+  // keep the inline success message instead of a full-page redirect.
+  const form = document.getElementById("contact-form") as HTMLFormElement | null;
+  const success = document.getElementById("form-success");
+  const error = document.getElementById("form-error");
+  const submitBtn = form?.querySelector('button[type="submit"]') as HTMLButtonElement | null;
+
+  form?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    success?.classList.add("hidden");
+    error?.classList.add("hidden");
+    if (submitBtn) submitBtn.disabled = true;
+
+    const formData = new FormData(form);
+    try {
+      const res = await fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams(formData as unknown as Record<string, string>).toString(),
+      });
+      if (!res.ok) throw new Error(`Form submission failed: ${res.status}`);
+      form.reset();
+      success?.classList.remove("hidden");
+      setTimeout(() => success?.classList.add("hidden"), 8000);
+    } catch (err) {
+      console.error(err);
+      error?.classList.remove("hidden");
+    } finally {
+      if (submitBtn) submitBtn.disabled = false;
+    }
+  });
+</script>

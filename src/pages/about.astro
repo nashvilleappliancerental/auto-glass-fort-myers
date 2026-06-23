@@ -1,0 +1,64 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import PageHero from "../components/PageHero.astro";
+import CTABand from "../components/CTABand.astro";
+import Icon from "../components/Icon.astro";
+import { SITE, cityState } from "../data/site";
+import { ABOUT } from "../data/about";
+
+const title = `About ${SITE.name} | ${cityState}`;
+const description = `${SITE.name} is a locally-owned, insured mobile ${SITE.trade} service serving ${cityState} and the surrounding area — we bring the shop to you.`;
+---
+
+<Layout title={title} description={description}>
+  <Header />
+  <main class="pt-20">
+    <PageHero
+      eyebrow="About us"
+      title={ABOUT.heroTitle}
+      subtitle={ABOUT.heroSubtitle}
+      crumbs={[{ label: "Home", href: "/" }, { label: "About" }]}
+    />
+
+    <section class="py-20 sm:py-24">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 grid lg:grid-cols-2 gap-14 items-center">
+        <div class="prose-body">
+          {ABOUT.sections.map((sec) => (
+            <>
+              <h2>{sec.heading}</h2>
+              {sec.paragraphs.map((p) => <p>{p}</p>)}
+            </>
+          ))}
+        </div>
+        <div class="grid sm:grid-cols-2 gap-4">
+          {ABOUT.values.map((v) => (
+            <div class="bg-white border border-border/40 rounded-3xl p-6">
+              <div class="w-12 h-12 rounded-2xl bg-brand-accent/10 flex items-center justify-center mb-4">
+                <Icon name={v.icon} class="w-6 h-6 text-brand-accent" />
+              </div>
+              <h3 class="font-bold text-lg mb-1.5 tracking-tight">{v.title}</h3>
+              <p class="text-sm text-muted-foreground leading-relaxed">{v.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats band -->
+    <section class="py-16 bg-brand-charcoal text-brand-cream">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 grid grid-cols-2 md:grid-cols-3 gap-8 text-center">
+        {ABOUT.stats.map((s) => (
+          <div>
+            <div class="text-4xl font-extrabold text-brand-accent">{s.value}</div>
+            <div class="text-sm text-brand-cream/70 mt-1">{s.label}</div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <CTABand />
+  </main>
+  <Footer />
+</Layout>

@@ -1,0 +1,90 @@
+---
+import '../styles/global.css';
+import { SITE, tradeCap, cityState } from '../data/site';
+import { DESIGN } from '../data/design';
+
+interface Props {
+  title?: string;
+  description?: string;
+  /** Path-relative OG image. Defaults to the branded site image. */
+  image?: string;
+  /** Extra JSON-LD objects to inject (e.g. Service, FAQPage). */
+  schema?: Record<string, unknown>[];
+}
+
+const {
+  title = `${tradeCap} Services in ${cityState} | ${SITE.name}`,
+  description = `${SITE.name} — ${SITE.tradeAdjective} ${SITE.trade} services in ${cityState} and the surrounding area. Free estimates.`,
+  image = "/og-image.png",
+  schema = [],
+} = Astro.props;
+
+// Canonical URL for this page (Astro.site comes from astro.config.mjs).
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const ogImage = new URL(image, Astro.site).href;
+
+// LocalBusiness structured data — present on every page.
+const localBusiness = {
+  "@context": "https://schema.org",
+  "@type": SITE.schemaType,
+  name: SITE.name,
+  url: SITE.url,
+  telephone: SITE.phoneHref.replace("tel:", ""),
+  email: SITE.email,
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: SITE.address.street,
+    addressLocality: SITE.address.city,
+    addressRegion: SITE.address.state,
+    postalCode: SITE.address.zip,
+    addressCountry: "US",
+  },
+  areaServed: `${cityState} and the surrounding area`,
+  // Only emit a rating when there are REAL reviews — never a 0-count rating.
+  ...(SITE.rating.count > 0
+    ? {
+        aggregateRating: {
+          "@type": "AggregateRating",
+          ratingValue: SITE.rating.value,
+          reviewCount: SITE.rating.count,
+        },
+      }
+    : {}),
+};
+
+const jsonLd = [localBusiness, ...schema];
+---
+
+<!doctype html>
+<html lang="en" data-radius={DESIGN.radius}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+    <link rel="canonical" href={canonical} />
+
+    <!-- Open Graph / social -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+
+    {jsonLd.map((obj) => (
+      <script type="application/ld+json" set:html={JSON.stringify(obj)} />
+    ))}
+  </head>
+  <body class="min-h-screen bg-brand-cream text-brand-charcoal antialiased">
+    <slot />
+  </body>
+</html>

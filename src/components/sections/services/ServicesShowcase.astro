@@ -1,0 +1,41 @@
+---
+// SERVICES variant: large photo cards with overlaid title (2-up).
+import Icon from "../../Icon.astro";
+import { SITE, tradeCap, cityState } from "../../../data/site";
+import type { ServiceItem } from "../types";
+interface Props { services: ServiceItem[] }
+const { services } = Astro.props;
+---
+<section id="services" class="py-24 sm:py-28">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6">
+    <div class="max-w-2xl mb-12">
+      <p class="text-brand-accent font-bold uppercase tracking-[0.2em] text-xs mb-3">What we do</p>
+      <h2 class="text-4xl sm:text-5xl font-extrabold tracking-tight leading-[1.05]">{tradeCap} work, done right.</h2>
+      <p class="text-muted-foreground leading-relaxed mt-4">
+        Residential and commercial {SITE.trade} across {cityState} and the surrounding area — built to last.
+      </p>
+    </div>
+    <div class="grid sm:grid-cols-2 gap-6">
+      {services.map((s, i) => (
+        <a href={`/${s.id}`} class="group relative overflow-hidden rounded-3xl border border-border/60 bg-brand-charcoal text-brand-cream shadow-sm hover:shadow-2xl transition-all">
+          <div class="aspect-[16/10] overflow-hidden">
+            <img src={s.image ?? "/images/service.jpg"} alt={s.title} loading={i < 2 ? "eager" : "lazy"} class="h-full w-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700" />
+            <div class="absolute inset-0 bg-gradient-to-t from-brand-charcoal via-brand-charcoal/40 to-transparent"></div>
+          </div>
+          <div class="absolute inset-x-0 bottom-0 p-6 sm:p-8">
+            <div class="flex items-center gap-2.5 mb-2">
+              <span class="w-9 h-9 rounded-xl bg-brand-accent flex items-center justify-center">
+                <Icon name={s.icon} class="w-5 h-5 text-brand-accent-contrast" />
+              </span>
+              <h3 class="font-display text-2xl font-bold tracking-tight">{s.title}</h3>
+            </div>
+            <p class="text-brand-cream/80 text-[15px] leading-relaxed max-w-lg">{s.summary}</p>
+            <div class="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-accent group-hover:translate-x-1 transition-transform">
+              Learn more <Icon name="arrow-right" class="w-4 h-4" />
+            </div>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>

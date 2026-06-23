@@ -1,0 +1,30 @@
+---
+// Brand logo lockup: mark + wordmark from SITE.logo ({ eyebrow, main, accent }).
+// Built for dark (charcoal) backgrounds — the mark outline + main wordmark use
+// currentColor (cream), the mark joint + accent word use the brand accent.
+// The `brand` skill swaps the placeholder mark below for the real logo mark.
+import { SITE } from "../data/site";
+interface Props {
+  class?: string;
+}
+const { class: className = "" } = Astro.props;
+const { eyebrow, main, accent } = SITE.logo;
+---
+
+<span class={`inline-flex items-center gap-2.5 text-brand-cream ${className}`}>
+  <svg viewBox="0 0 90 90" fill="none" class="w-9 h-9 sm:w-10 sm:h-10 shrink-0" aria-hidden="true">
+    <!-- Glass pane (thin) -->
+    <rect x="15" y="26" width="52" height="52" rx="11" stroke="currentColor" stroke-width="2.6" />
+    <!-- Blue reflection -->
+    <g stroke="var(--color-brand-accent)" stroke-width="4" stroke-linecap="round">
+      <path d="M24 68 L44 44" />
+      <path d="M33 72 L53 48" />
+    </g>
+    <!-- Shine sparkle -->
+    <path d="M70 14 L72.6 19.4 L78 22 L72.6 24.6 L70 30 L67.4 24.6 L62 22 L67.4 19.4 Z" fill="var(--color-brand-accent)" />
+  </svg>
+  <span class="flex flex-col leading-none">
+    <span class="text-[0.6rem] font-bold tracking-[0.28em] text-brand-cream/65">{eyebrow}</span>
+    <span class="font-display font-extrabold text-lg sm:text-xl tracking-tight leading-tight mt-1">{main} <span class="text-brand-accent">{accent}</span></span>
+  </span>
+</span>

@@ -1,0 +1,59 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import PageHero from "../../components/PageHero.astro";
+import CTABand from "../../components/CTABand.astro";
+import Icon from "../../components/Icon.astro";
+import { getCollection } from "astro:content";
+import { SITE, tradeCap, cityState } from "../../data/site";
+
+const services = (await getCollection("services")).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+
+const title = `${tradeCap} Services in ${cityState} | ${SITE.name}`;
+const description = `${tradeCap} services in ${cityState} and the surrounding area. See everything we offer and request a free estimate.`;
+---
+
+<Layout title={title} description={description}>
+  <Header />
+  <main class="pt-20">
+    <PageHero
+      eyebrow="What we build"
+      title={`${tradeCap} services built to last.`}
+      subtitle={`Residential and commercial ${SITE.trade} across ${cityState} and the surrounding area — done right and finished with care.`}
+      crumbs={[{ label: "Home", href: "/" }, { label: "Services" }]}
+    />
+
+    <section class="py-20 sm:py-24">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6">
+        <div class="grid sm:grid-cols-2 gap-6">
+          {services.map((s, i) => (
+            <a href={`/${s.id}`} class="group relative overflow-hidden rounded-3xl border border-border/60 bg-brand-charcoal text-brand-cream shadow-sm hover:shadow-2xl transition-all">
+              <div class="aspect-[16/10] overflow-hidden">
+                <img src={s.data.image} alt={s.data.title} loading={i < 2 ? "eager" : "lazy"} class="h-full w-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700" />
+                <div class="absolute inset-0 bg-gradient-to-t from-brand-charcoal via-brand-charcoal/40 to-transparent"></div>
+              </div>
+              <div class="absolute inset-x-0 bottom-0 p-6 sm:p-8">
+                <div class="flex items-center gap-2.5 mb-2">
+                  <span class="w-9 h-9 rounded-xl bg-brand-accent flex items-center justify-center">
+                    <Icon name={s.data.icon} class="w-5 h-5 text-brand-accent-contrast" />
+                  </span>
+                  <h2 class="font-display text-2xl font-bold tracking-tight">{s.data.title}</h2>
+                </div>
+                <p class="text-brand-cream/80 text-[15px] leading-relaxed max-w-lg">{s.data.summary}</p>
+                <div class="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-accent group-hover:translate-x-1 transition-transform">
+                  Learn more <Icon name="arrow-right" class="w-4 h-4" />
+                </div>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <CTABand />
+  </main>
+  <Footer />
+</Layout>

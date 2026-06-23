@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1260" height="560" viewBox="0 0 1260 560" font-family="Segoe UI, Arial, sans-serif">
+  <rect width="1260" height="560" fill="#f4f5f7"/>
+  <text x="40" y="48" font-size="30" font-weight="800" fill="#111827">Auto Glass Fort Myers — palette options</text>
+  <text x="40" y="78" font-size="17" fill="#6b7280">Pick A, B, or C. Each shows the dark panel, accent word, a CTA button, and the off-white background.</text>
+
+  <!-- ============ A: Glass Blue ============ -->
+  <g transform="translate(40,110)">
+    <text x="0" y="0" font-size="20" font-weight="700" fill="#111827">A · Glass Blue</text>
+    <!-- dark panel -->
+    <rect x="0" y="16" width="380" height="170" rx="10" fill="#0f1b2d"/>
+    <text x="24" y="70" font-size="15" letter-spacing="3" fill="#9fb3c8">FORT MYERS</text>
+    <text x="24" y="112" font-size="34" font-weight="800" fill="#f3f6fa">AUTO <tspan fill="#2f6bff">GLASS</tspan></text>
+    <!-- button -->
+    <rect x="24" y="132" width="170" height="40" rx="8" fill="#2f6bff"/>
+    <text x="109" y="158" font-size="15" font-weight="700" fill="#ffffff" text-anchor="middle">Get a Free Quote</text>
+    <!-- swatches -->
+    <rect x="0" y="200" width="60" height="40" rx="6" fill="#2f6bff"/><text x="0" y="258" font-size="12" fill="#374151">#2F6BFF</text>
+    <rect x="70" y="200" width="60" height="40" rx="6" fill="#0f1b2d"/><text x="70" y="258" font-size="12" fill="#374151">#0F1B2D</text>
+    <rect x="140" y="200" width="60" height="40" rx="6" fill="#f5f8fc" stroke="#d7dee7"/><text x="140" y="258" font-size="12" fill="#374151">#F5F8FC</text>
+    <text x="0" y="284" font-size="13" fill="#6b7280">Vivid azure · trust + automotive. White text on accent.</text>
+  </g>
+
+  <!-- ============ B: Deep Teal ============ -->
+  <g transform="translate(440,110)">
+    <text x="0" y="0" font-size="20" font-weight="700" fill="#111827">B · Deep Teal</text>
+    <rect x="0" y="16" width="380" height="170" rx="10" fill="#10242b"/>
+    <text x="24" y="70" font-size="15" letter-spacing="3" fill="#8fb2b3">FORT MYERS</text>
+    <text x="24" y="112" font-size="34" font-weight="800" fill="#eef6f5">AUTO <tspan fill="#13b6a6">GLASS</tspan></text>
+    <rect x="24" y="132" width="170" height="40" rx="8" fill="#13b6a6"/>
+    <text x="109" y="158" font-size="15" font-weight="700" fill="#06302c" text-anchor="middle">Get a Free Quote</text>
+    <rect x="0" y="200" width="60" height="40" rx="6" fill="#13b6a6"/><text x="0" y="258" font-size="12" fill="#374151">#13B6A6</text>
+    <rect x="70" y="200" width="60" height="40" rx="6" fill="#10242b"/><text x="70" y="258" font-size="12" fill="#374151">#10242B</text>
+    <rect x="140" y="200" width="60" height="40" rx="6" fill="#f1f7f6" stroke="#d3e2df"/><text x="140" y="258" font-size="12" fill="#374151">#F1F7F6</text>
+    <text x="0" y="284" font-size="13" fill="#6b7280">Clean teal · modern + fresh. Dark text on accent.</text>
+  </g>
+
+  <!-- ============ C: Electric Cyan ============ -->
+  <g transform="translate(840,110)">
+    <text x="0" y="0" font-size="20" font-weight="700" fill="#111827">C · Electric Cyan</text>
+    <rect x="0" y="16" width="380" height="170" rx="10" fill="#15202b"/>
+    <text x="24" y="70" font-size="15" letter-spacing="3" fill="#8aa4b3">FORT MYERS</text>
+    <text x="24" y="112" font-size="34" font-weight="800" fill="#eef4f8">AUTO <tspan fill="#22c9e0">GLASS</tspan></text>
+    <rect x="24" y="132" width="170" height="40" rx="8" fill="#22c9e0"/>
+    <text x="109" y="158" font-size="15" font-weight="700" fill="#062630" text-anchor="middle">Get a Free Quote</text>
+    <rect x="0" y="200" width="60" height="40" rx="6" fill="#22c9e0"/><text x="0" y="258" font-size="12" fill="#374151">#22C9E0</text>
+    <rect x="70" y="200" width="60" height="40" rx="6" fill="#15202b"/><text x="70" y="258" font-size="12" fill="#374151">#15202B</text>
+    <rect x="140" y="200" width="60" height="40" rx="6" fill="#f0f6f9" stroke="#d2e0e6"/><text x="140" y="258" font-size="12" fill="#374151">#F0F6F9</text>
+    <text x="0" y="284" font-size="13" fill="#6b7280">Bright cyan · energetic. Dark text on accent (light color).</text>
+  </g>
+
+  <text x="40" y="470" font-size="15" fill="#9ca3af">Recommended: A (Glass Blue) for trust, or B (Deep Teal) for the most distinct look vs. recent builds.</text>
+</svg>

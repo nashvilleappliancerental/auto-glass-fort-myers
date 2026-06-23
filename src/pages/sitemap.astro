@@ -1,0 +1,90 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import PageHero from "../components/PageHero.astro";
+import Icon from "../components/Icon.astro";
+import { getCollection } from "astro:content";
+import { SITE, tradeCap, locationUrl } from "../data/site";
+
+const services = (await getCollection("services")).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+const locations = (await getCollection("locations")).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+
+const mainPages = [
+  { href: "/", label: "Home" },
+  { href: "/services", label: `${tradeCap} Services` },
+  { href: "/service-area", label: "Service Area" },
+  { href: "/about", label: "About Us" },
+  { href: "/faq", label: "FAQ" },
+  { href: "/contact", label: "Contact" },
+];
+
+const title = `Site Map | ${SITE.name}`;
+const description = `Browse every page on the ${SITE.name} website — ${SITE.trade} services, the cities we serve, and company info.`;
+---
+
+<Layout title={title} description={description}>
+  <Header />
+  <main class="pt-20">
+    <PageHero
+      eyebrow="Site Map"
+      title="Everything on our site, in one place."
+      subtitle={`A full index of our ${SITE.trade} services and the communities we serve. Looking for the version for search engines? It's at /sitemap-index.xml.`}
+      crumbs={[{ label: "Home", href: "/" }, { label: "Site Map" }]}
+    />
+
+    <section class="py-20 sm:py-24">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 grid md:grid-cols-3 gap-10 lg:gap-16">
+        <!-- Main pages -->
+        <div>
+          <p class="text-brand-accent font-bold uppercase tracking-[0.2em] text-xs mb-5">Main pages</p>
+          <ul class="space-y-3">
+            {mainPages.map((p) => (
+              <li>
+                <a href={p.href} class="group inline-flex items-center gap-2 font-semibold hover:text-brand-accent transition-colors">
+                  <Icon name="arrow-right" class="w-4 h-4 text-brand-accent transition-transform group-hover:translate-x-1" />
+                  {p.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <!-- Services -->
+        <div>
+          <p class="text-brand-accent font-bold uppercase tracking-[0.2em] text-xs mb-5">{tradeCap} services</p>
+          <ul class="space-y-3">
+            {services.map((s) => (
+              <li>
+                <a href={`/${s.id}`} class="group inline-flex items-center gap-2 font-semibold hover:text-brand-accent transition-colors">
+                  <Icon name="arrow-right" class="w-4 h-4 text-brand-accent transition-transform group-hover:translate-x-1" />
+                  {s.data.title}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <!-- Service areas -->
+        <div>
+          <p class="text-brand-accent font-bold uppercase tracking-[0.2em] text-xs mb-5">Service areas</p>
+          <ul class="space-y-3">
+            {locations.map((l) => (
+              <li>
+                <a href={locationUrl(l)} class="group inline-flex items-center gap-2 font-semibold hover:text-brand-accent transition-colors">
+                  <Icon name="map-pin" class="w-4 h-4 text-brand-accent shrink-0" />
+                  {tradeCap} in {l.data.city}, {l.data.state}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>

@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="700" height="430" viewBox="0 0 700 430" font-family="Segoe UI, Arial, sans-serif">
+  <rect width="700" height="430" fill="#f4f5f7"/>
+  <text x="40" y="44" font-size="24" font-weight="800" fill="#111827">Concept B — thinner pane + shine</text>
+  <text x="40" y="70" font-size="14" fill="#6b7280">B1: blue reflection + small sparkle  ·  B2: cream reflection + sparkle as the only accent</text>
+
+  <!-- ===== B1 ===== -->
+  <g transform="translate(40,96)">
+    <rect width="300" height="300" rx="16" fill="#0f1b2d"/>
+    <!-- pane: thinner -->
+    <rect x="96" y="96" width="108" height="108" rx="18" fill="none" stroke="#eef4fb" stroke-width="5"/>
+    <!-- reflection (accent) -->
+    <g stroke="#2f6bff" stroke-width="6" stroke-linecap="round">
+      <path d="M118,170 L160,120"/>
+      <path d="M142,178 L184,128"/>
+    </g>
+    <!-- sparkle (accent, small, top-right) -->
+    <path d="M196,87 L200.5,97.5 L211,102 L200.5,106.5 L196,117 L191.5,106.5 L181,102 L191.5,97.5 Z" fill="#2f6bff"/>
+    <text x="150" y="262" font-size="17" font-weight="700" fill="#eef4fb" text-anchor="middle">B1 · blue reflection + sparkle</text>
+  </g>
+
+  <!-- ===== B2 ===== -->
+  <g transform="translate(360,96)">
+    <rect width="300" height="300" rx="16" fill="#0f1b2d"/>
+    <rect x="96" y="96" width="108" height="108" rx="18" fill="none" stroke="#eef4fb" stroke-width="5"/>
+    <!-- reflection (cream, thin) -->
+    <g stroke="#eef4fb" stroke-width="5" stroke-linecap="round">
+      <path d="M118,170 L160,120"/>
+      <path d="M142,178 L184,128"/>
+    </g>
+    <!-- sparkle (accent, larger) -->
+    <path d="M196,80 L202,94 L216,100 L202,106 L196,120 L190,106 L176,100 L190,94 Z" fill="#2f6bff"/>
+    <text x="150" y="262" font-size="17" font-weight="700" fill="#eef4fb" text-anchor="middle">B2 · cream reflection + sparkle</text>
+  </g>
+</svg>

@@ -1,0 +1,67 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import ContactSection from "../components/ContactSection.astro";
+import { SITE, tradeCap, cityState, locationUrl } from "../data/site";
+import { HERO, TRUST, REVIEWS, FAQS, MAP_PINS } from "../data/homepage";
+import { DESIGN } from "../data/design";
+import { getCollection } from "astro:content";
+
+// Section variants — each set shares one prop contract (see sections/types.ts).
+import HeroSplit from "../components/sections/hero/HeroSplit.astro";
+import HeroCentered from "../components/sections/hero/HeroCentered.astro";
+import ServicesGrid from "../components/sections/services/ServicesGrid.astro";
+import ServicesShowcase from "../components/sections/services/ServicesShowcase.astro";
+import WhyRows from "../components/sections/why/WhyRows.astro";
+import WhyStatBand from "../components/sections/why/WhyStatBand.astro";
+import AreaMapList from "../components/sections/area/AreaMapList.astro";
+import AreaDirectory from "../components/sections/area/AreaDirectory.astro";
+import Reviews from "../components/sections/reviews/Reviews.astro";
+import Faq from "../components/sections/faq/Faq.astro";
+
+const heroVariants = { HeroSplit, HeroCentered };
+const servicesVariants = { ServicesGrid, ServicesShowcase };
+const whyVariants = { WhyRows, WhyStatBand };
+const areaVariants = { AreaMapList, AreaDirectory };
+
+const Hero = heroVariants[DESIGN.hero] ?? HeroSplit;
+const Services = servicesVariants[DESIGN.services] ?? ServicesGrid;
+const Why = whyVariants[DESIGN.why] ?? WhyRows;
+const Area = areaVariants[DESIGN.area] ?? AreaMapList;
+
+// Map collection data into the section contracts.
+const services = (await getCollection("services"))
+  .sort((a, b) => a.data.order - b.data.order)
+  .map((s) => ({ id: s.id, title: s.data.title, summary: s.data.summary, icon: s.data.icon, image: s.data.image }));
+
+const locations = (await getCollection("locations"))
+  .sort((a, b) => a.data.order - b.data.order)
+  .map((l) => ({ city: l.data.city, state: l.data.state, summary: l.data.summary, href: locationUrl(l) }));
+
+const title = `${tradeCap} in ${cityState} | ${SITE.name}`;
+const description = `${SITE.name} — ${SITE.tradeAdjective} ${SITE.trade} in ${cityState} and the surrounding area. Free, no-pressure estimates.`;
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: FAQS.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
+};
+---
+
+<Layout title={title} description={description} schema={[faqSchema]}>
+  <Header />
+  <main id="top" class="pt-20">
+    <Hero hero={HERO} />
+    {DESIGN.order.map((key) => (
+      key === "services" ? <Services services={services} />
+      : key === "why" ? <Why items={TRUST} />
+      : key === "area" ? <Area locations={locations} pins={MAP_PINS} />
+      : key === "faq" ? <Faq faqs={FAQS} />
+      : key === "reviews" ? (REVIEWS.length > 0 && <Reviews reviews={REVIEWS} />)
+      : null
+    ))}
+    <ContactSection />
+  </main>
+  <Footer />
+</Layout>

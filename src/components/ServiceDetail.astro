@@ -1,0 +1,263 @@
+---
+// Full service-page template. Each service has a thin root-level page
+// (e.g. src/pages/<service-slug>.astro) that renders this with its id,
+// so the URL is a root keyword slug like /<service-slug>.
+import Layout from "../layouts/Layout.astro";
+import Header from "./Header.astro";
+import Footer from "./Footer.astro";
+import Icon from "./Icon.astro";
+import ContactSection from "./ContactSection.astro";
+import { SITE, cityState } from "../data/site";
+import { getCollection, getEntry, render } from "astro:content";
+
+interface Props {
+  /** Service collection id, which is also the root slug. */
+  id: string;
+}
+const { id } = Astro.props;
+
+const entry = await getEntry("services", id);
+if (!entry) throw new Error(`Unknown service: ${id}`);
+const { Content } = await render(entry);
+const d = entry.data;
+
+const others = (await getCollection("services"))
+  .filter((s) => s.id !== id)
+  .sort((a, b) => a.data.order - b.data.order);
+
+const title = d.metaTitle ?? `${d.title} in ${cityState} | ${SITE.name}`;
+const description = d.metaDescription ?? d.summary;
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  serviceType: d.title,
+  provider: { "@type": SITE.schemaType, name: SITE.name, telephone: SITE.phoneHref.replace("tel:", "") },
+  areaServed: `${cityState} and the surrounding area`,
+  description: d.summary,
+};
+
+const schemas: object[] = [serviceSchema];
+if (d.faqs.length > 0) {
+  schemas.push({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: d.faqs.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
+  });
+}
+---
+
+<Layout title={title} description={description} image={d.image} schema={schemas}>
+  <Header />
+  <main class="pt-20">
+    <!-- Hero with service photo -->
+    <section class="relative isolate overflow-hidden bg-brand-charcoal text-brand-cream">
+      <div class="absolute inset-0 -z-10">
+        <img src={d.image} alt={d.title} class="h-full w-full object-cover" />
+        <div class="absolute inset-0 bg-gradient-to-r from-brand-charcoal/95 via-brand-charcoal/85 to-brand-charcoal/55"></div>
+      </div>
+      <div class="relative max-w-7xl mx-auto px-4 sm:px-6 pt-14 pb-16 sm:pt-16 sm:pb-20">
+        <nav class="flex items-center flex-wrap gap-1.5 text-xs text-brand-cream/60 mb-6" aria-label="Breadcrumb">
+          <a href="/" class="hover:text-brand-accent transition-colors">Home</a>
+          <span class="opacity-50">/</span>
+          <a href="/services" class="hover:text-brand-accent transition-colors">Services</a>
+          <span class="opacity-50">/</span>
+          <span class="text-brand-cream/80">{d.title}</span>
+        </nav>
+        <div class="inline-flex items-center gap-2.5 mb-4">
+          <span class="w-11 h-11 rounded-xl bg-brand-accent flex items-center justify-center">
+            <Icon name={d.icon} class="w-6 h-6 text-brand-accent-contrast" />
+          </span>
+        </div>
+        <h1 class="font-display font-extrabold text-4xl sm:text-5xl lg:text-6xl leading-[1.04] tracking-tight max-w-3xl">{d.title}</h1>
+        <p class="text-lg text-brand-cream/80 mt-5 max-w-2xl leading-relaxed">{d.tagline}</p>
+      </div>
+    </section>
+
+    <section class="py-20 sm:py-24">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 grid lg:grid-cols-[1.4fr_0.6fr] gap-12">
+        <article class="prose-body">
+          <Content />
+        </article>
+
+        <aside class="space-y-6">
+          <div class="bg-white border border-border/60 rounded-3xl p-7 shadow-sm">
+            <h2 class="text-lg font-bold mb-4 tracking-tight">What's included</h2>
+            <ul class="space-y-3">
+              {d.highlights.map((h) => (
+                <li class="flex gap-2.5">
+                  <Icon name="check-circle" class="w-5 h-5 text-brand-accent shrink-0 mt-0.5" />
+                  <span class="text-[15px] leading-relaxed text-muted-foreground">{h}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div class="bg-brand-charcoal text-brand-cream rounded-3xl p-7 shadow-sm">
+            <h2 class="text-lg font-bold mb-2 tracking-tight">Free estimate</h2>
+            <p class="text-sm text-brand-cream/70 leading-relaxed mb-5">Tell us about your project and we'll respond within one business day.</p>
+            <a href={SITE.phoneHref} class="flex items-center justify-center gap-2 bg-brand-accent hover:bg-brand-accent-dark text-brand-accent-contrast font-bold px-5 py-3.5 rounded-[var(--radius-btn)] transition-colors mb-3">
+              <Icon name="phone" class="w-4 h-4" /> {SITE.phone}
+            </a>
+            <a href="/contact" class="flex items-center justify-center gap-2 bg-white/5 hover:bg-white/10 border border-white/20 font-semibold px-5 py-3.5 rounded-[var(--radius-btn)] transition-colors">
+              Request online <Icon name="arrow-right" class="w-4 h-4" />
+            </a>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- Finish / option showcase -->
+    {d.options && d.options.items.length > 0 && (
+      <section class="py-16 sm:py-20 bg-brand-cream-dark">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+          <div class="max-w-2xl mb-10">
+            <p class="text-brand-accent font-bold uppercase tracking-[0.2em] text-xs mb-3">Your options</p>
+            <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight leading-[1.08]">{d.options.heading}</h2>
+            {d.options.intro && <p class="text-muted-foreground leading-relaxed mt-4">{d.options.intro}</p>}
+          </div>
+          <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {d.options.items.map((o) => (
+              <div class="bg-white border border-border/60 rounded-3xl p-7">
+                <div class="w-12 h-12 rounded-2xl bg-brand-accent/10 flex items-center justify-center mb-5">
+                  <Icon name={o.icon ?? "sparkle"} class="w-6 h-6 text-brand-accent" />
+                </div>
+                <h3 class="font-bold text-lg mb-2 tracking-tight">{o.name}</h3>
+                <p class="text-sm text-muted-foreground leading-relaxed">{o.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
+
+    <!-- Our process -->
+    {d.process.length > 0 && (
+      <section class="py-16 sm:py-20 bg-brand-charcoal text-brand-cream">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+          <div class="max-w-2xl mb-12">
+            <p class="text-brand-accent font-bold uppercase tracking-[0.2em] text-xs mb-3">Our process</p>
+            <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight leading-[1.08]">How we deliver your {d.title.toLowerCase()}.</h2>
+          </div>
+          <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-10">
+            {d.process.map((step, i) => (
+              <div class="relative">
+                <span class="block text-5xl font-extrabold text-brand-accent/30 tabular-nums mb-3">{String(i + 1).padStart(2, "0")}</span>
+                <h3 class="font-bold text-lg tracking-tight mb-1.5">{step.title}</h3>
+                <p class="text-brand-cream/70 leading-relaxed text-[15px]">{step.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
+
+    <!-- What affects your cost -->
+    {d.costFactors.length > 0 && (
+      <section class="py-16 sm:py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 grid lg:grid-cols-[0.85fr_1.4fr] gap-10 lg:gap-16 items-start">
+          <div class="lg:sticky lg:top-28">
+            <p class="text-brand-accent font-bold uppercase tracking-[0.2em] text-xs mb-3">Estimating</p>
+            <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight leading-[1.08] mb-5">What affects your {d.title.toLowerCase()} cost.</h2>
+            <p class="text-muted-foreground leading-relaxed">Every project is different, so we give a written quote after seeing the site. These are the factors that move the number up or down.</p>
+          </div>
+          <div class="divide-y divide-border/60 border-t border-border/60">
+            {d.costFactors.map((f) => (
+              <div class="flex items-start gap-4 py-5">
+                <Icon name="check-circle" class="w-5 h-5 text-brand-accent shrink-0 mt-1" />
+                <div>
+                  <h3 class="font-bold tracking-tight">{f.label}</h3>
+                  <p class="text-muted-foreground leading-relaxed text-[15px] mt-0.5">{f.detail}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
+
+    <!-- Service FAQ -->
+    {d.faqs.length > 0 && (
+      <section class="py-16 sm:py-20 bg-brand-cream-dark">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6">
+          <div class="mb-10">
+            <p class="text-brand-accent font-bold uppercase tracking-[0.2em] text-xs mb-3">Answers</p>
+            <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight leading-[1.08]">{d.title} questions, answered.</h2>
+          </div>
+          <div class="space-y-3">
+            {d.faqs.map((f, i) => (
+              <div class={`faq-item bg-white border rounded-2xl overflow-hidden transition-all ${i === 0 ? "border-brand-accent/40 shadow-lg" : "border-border/60"}`}>
+                <button class="faq-btn w-full flex items-center justify-between gap-4 p-5 sm:p-6 text-left font-bold text-base sm:text-lg hover:bg-brand-cream/40" aria-expanded={i === 0 ? "true" : "false"}>
+                  <span>{f.q}</span>
+                  <span class={`faq-icon w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-all ${i === 0 ? "bg-brand-accent text-brand-accent-contrast rotate-180" : "bg-brand-cream-dark text-brand-accent"}`}>
+                    <Icon name="chevron-down" class="w-4 h-4" />
+                  </span>
+                </button>
+                <div class={`faq-answer px-5 sm:px-6 pb-6 text-muted-foreground leading-relaxed ${i === 0 ? "" : "hidden"}`}>
+                  {f.a}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
+
+    <!-- Other services -->
+    <section class="py-16">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6">
+        <h2 class="text-2xl font-extrabold tracking-tight mb-8">Explore our other services</h2>
+        <div class="grid sm:grid-cols-3 gap-4">
+          {others.map((s) => (
+            <a href={`/${s.id}`} class="group bg-white border border-border/60 hover:border-brand-accent/40 hover:-translate-y-1 hover:shadow-lg transition-all p-5 rounded-2xl flex items-center gap-4">
+              <div class="w-12 h-12 shrink-0 rounded-xl bg-brand-cream-dark group-hover:bg-brand-accent transition-colors flex items-center justify-center">
+                <Icon name={s.data.icon} class="w-6 h-6 text-brand-charcoal group-hover:text-white transition-colors" />
+              </div>
+              <h3 class="font-bold text-sm leading-snug tracking-tight">{s.data.title}</h3>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <ContactSection defaultService={d.title} heading={`Request your ${d.title.toLowerCase()} estimate.`} eyebrow="Get started" />
+  </main>
+  <Footer />
+</Layout>
+
+<script>
+  // FAQ accordion (matches the homepage behavior)
+  document.querySelectorAll(".faq-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const item = btn.closest(".faq-item") as HTMLElement;
+      const answer = item.querySelector(".faq-answer") as HTMLElement;
+      const icon = item.querySelector(".faq-icon") as HTMLElement;
+      const isOpen = !answer.classList.contains("hidden");
+
+      document.querySelectorAll(".faq-item").forEach((other) => {
+        const otherAnswer = other.querySelector(".faq-answer") as HTMLElement;
+        const otherIcon = other.querySelector(".faq-icon") as HTMLElement;
+        const otherBtn = other.querySelector(".faq-btn") as HTMLButtonElement;
+        otherAnswer.classList.add("hidden");
+        otherIcon.classList.remove("bg-brand-accent", "text-brand-accent-contrast", "rotate-180");
+        otherIcon.classList.add("bg-brand-cream-dark", "text-brand-accent");
+        other.classList.remove("border-brand-accent/40", "shadow-lg");
+        other.classList.add("border-border/60");
+        otherBtn.setAttribute("aria-expanded", "false");
+      });
+
+      if (!isOpen) {
+        answer.classList.remove("hidden");
+        icon.classList.add("bg-brand-accent", "text-brand-accent-contrast", "rotate-180");
+        icon.classList.remove("bg-brand-cream-dark", "text-brand-accent");
+        item.classList.add("border-brand-accent/40", "shadow-lg");
+        item.classList.remove("border-border/60");
+        btn.setAttribute("aria-expanded", "true");
+      }
+    });
+  });
+</script>

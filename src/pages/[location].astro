@@ -1,0 +1,237 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import PageHero from "../components/PageHero.astro";
+import Icon from "../components/Icon.astro";
+import ContactSection from "../components/ContactSection.astro";
+import { SITE, tradeCap } from "../data/site";
+import { getCollection, render } from "astro:content";
+
+// Build flat URLs like /{locationSlugPrefix}-{city}-{state} from each entry.
+export async function getStaticPaths() {
+  const locations = await getCollection("locations");
+  return locations.map((entry) => ({
+    params: { location: `${SITE.locationSlugPrefix}-${entry.id}-${entry.data.state.toLowerCase()}` },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const d = entry.data;
+
+const services = (await getCollection("services")).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+
+// Look up service metadata (title/icon) for the "popular projects" block.
+const serviceMap = new Map(services.map((s) => [s.id, s.data]));
+const popular = d.popularProjects
+  .map((p) => ({ ...p, service: serviceMap.get(p.slug) }))
+  .filter((p) => p.service);
+
+const cityState = `${d.city}, ${d.state}`;
+const title = d.metaTitle ?? `${tradeCap} in ${cityState} | ${SITE.name}`;
+const description = d.metaDescription ?? d.summary;
+
+const localSchema = {
+  "@context": "https://schema.org",
+  "@type": SITE.schemaType,
+  name: `${SITE.name} — ${cityState}`,
+  telephone: SITE.phoneHref.replace("tel:", ""),
+  areaServed: cityState,
+  description: d.summary,
+};
+
+const schemas: object[] = [localSchema];
+if (d.faqs.length > 0) {
+  schemas.push({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: d.faqs.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
+  });
+}
+---
+
+<Layout title={title} description={description} schema={schemas}>
+  <Header />
+  <main class="pt-20">
+    <PageHero
+      eyebrow="Service Area"
+      title={`${tradeCap} in ${cityState}`}
+      subtitle={d.summary}
+      crumbs={[{ label: "Home", href: "/" }, { label: "Service Area", href: "/service-area" }, { label: d.city }]}
+    />
+
+    <section class="py-20 sm:py-24">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 grid lg:grid-cols-[1.4fr_0.6fr] gap-12">
+        <article class="prose-body">
+          <Content />
+        </article>
+
+        <aside class="space-y-6">
+          {d.neighborhoods.length > 0 && (
+            <div class="bg-white border border-border/60 rounded-3xl p-7 shadow-sm">
+              <h2 class="text-lg font-bold mb-4 tracking-tight">Areas we serve near {d.city}</h2>
+              <div class="flex flex-wrap gap-2">
+                {d.neighborhoods.map((n) => (
+                  <span class="inline-flex items-center gap-1.5 bg-brand-cream-dark px-3 py-1.5 rounded-full text-sm font-medium">
+                    <Icon name="map-pin" class="w-3.5 h-3.5 text-brand-accent" /> {n}
+                  </span>
+                ))}
+              </div>
+              {d.zips.length > 0 && (
+                <p class="text-xs text-muted-foreground mt-4">ZIP codes: {d.zips.join(", ")}</p>
+              )}
+            </div>
+          )}
+
+          <div class="bg-brand-charcoal text-brand-cream rounded-3xl p-7 shadow-sm">
+            <h2 class="text-lg font-bold mb-2 tracking-tight">Free {d.city} estimate</h2>
+            <p class="text-sm text-brand-cream/70 leading-relaxed mb-5">Local crew, fast response. We reply within one business day.</p>
+            <a href={SITE.phoneHref} class="flex items-center justify-center gap-2 bg-brand-accent hover:bg-brand-accent-dark text-brand-accent-contrast font-bold px-5 py-3.5 rounded-[var(--radius-btn)] transition-colors mb-3">
+              <Icon name="phone" class="w-4 h-4" /> {SITE.phone}
+            </a>
+            <a href="/contact" class="flex items-center justify-center gap-2 bg-white/5 hover:bg-white/10 border border-white/20 font-semibold px-5 py-3.5 rounded-[var(--radius-btn)] transition-colors">
+              Request online <Icon name="arrow-right" class="w-4 h-4" />
+            </a>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- Built for this city's conditions -->
+    {d.conditions && (
+      <section class="py-16 sm:py-20 bg-brand-charcoal text-brand-cream">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 grid lg:grid-cols-[0.9fr_1.1fr] gap-10 lg:gap-16 items-start">
+          <div>
+            <p class="text-brand-accent font-bold uppercase tracking-[0.2em] text-xs mb-3">Local conditions</p>
+            <h2 class="text-3xl sm:text-4xl font-extrabold leading-[1.08] tracking-tight mb-5">{d.conditions.heading}</h2>
+            <p class="text-brand-cream/75 leading-relaxed">{d.conditions.intro}</p>
+          </div>
+          <ul class="space-y-4">
+            {d.conditions.points.map((pt) => (
+              <li class="flex items-start gap-3.5 bg-white/[0.04] border border-white/10 rounded-2xl p-5">
+                <span class="w-8 h-8 shrink-0 rounded-lg bg-brand-accent/15 flex items-center justify-center mt-0.5">
+                  <Icon name="badge-check" class="w-4 h-4 text-brand-accent" />
+                </span>
+                <p class="text-brand-cream/85 leading-relaxed text-[15px]">{pt}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+    )}
+
+    <!-- Most-requested work in this city -->
+    {popular.length > 0 && (
+      <section class="py-16 sm:py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+          <div class="max-w-2xl mb-10">
+            <p class="text-brand-accent font-bold uppercase tracking-[0.2em] text-xs mb-3">Most requested</p>
+            <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight leading-[1.08]">What {d.city} asks us for most.</h2>
+          </div>
+          <div class="divide-y divide-border/60 border-t border-border/60">
+            {popular.map((p) => (
+              <a href={`/${p.slug}`} class="group flex items-start gap-5 py-6 -mx-4 px-4 sm:-mx-6 sm:px-6 hover:bg-brand-cream-dark/50 transition-colors">
+                <span class="w-12 h-12 shrink-0 rounded-2xl bg-brand-accent/10 flex items-center justify-center group-hover:bg-brand-accent transition-colors">
+                  <Icon name={p.service.icon} class="w-6 h-6 text-brand-accent group-hover:text-white transition-colors" />
+                </span>
+                <div class="flex-1 min-w-0">
+                  <h3 class="font-bold text-lg tracking-tight group-hover:text-brand-accent transition-colors">{p.service.title}</h3>
+                  <p class="text-muted-foreground leading-relaxed mt-1">{p.why}</p>
+                </div>
+                <Icon name="arrow-right" class="w-5 h-5 text-brand-accent shrink-0 mt-3 transition-transform group-hover:translate-x-1.5" />
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
+
+    <!-- Services available in this city -->
+    <section class="py-16 bg-brand-cream-dark">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6">
+        <h2 class="text-2xl font-extrabold tracking-tight mb-8">Our {SITE.trade} services in {d.city}</h2>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {services.map((s) => (
+            <a href={`/${s.id}`} class="group bg-white border border-border/60 hover:border-brand-accent/40 hover:-translate-y-1 hover:shadow-lg transition-all p-6 rounded-2xl flex items-center gap-4">
+              <div class="w-12 h-12 shrink-0 rounded-xl bg-brand-cream-dark group-hover:bg-brand-accent transition-colors flex items-center justify-center">
+                <Icon name={s.data.icon} class="w-6 h-6 text-brand-charcoal group-hover:text-white transition-colors" />
+              </div>
+              <h3 class="font-bold text-sm tracking-tight">{s.data.title}</h3>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- City-specific FAQ -->
+    {d.faqs.length > 0 && (
+      <section class="py-16 sm:py-20">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6">
+          <div class="mb-10">
+            <p class="text-brand-accent font-bold uppercase tracking-[0.2em] text-xs mb-3">Answers</p>
+            <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight leading-[1.08]">{tradeCap} questions from {d.city} drivers.</h2>
+          </div>
+          <div class="space-y-3">
+            {d.faqs.map((f, i) => (
+              <div class={`faq-item bg-white border rounded-2xl overflow-hidden transition-all ${i === 0 ? "border-brand-accent/40 shadow-lg" : "border-border/60"}`}>
+                <button class="faq-btn w-full flex items-center justify-between gap-4 p-5 sm:p-6 text-left font-bold text-base sm:text-lg hover:bg-brand-cream/40" aria-expanded={i === 0 ? "true" : "false"}>
+                  <span>{f.q}</span>
+                  <span class={`faq-icon w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-all ${i === 0 ? "bg-brand-accent text-brand-accent-contrast rotate-180" : "bg-brand-cream-dark text-brand-accent"}`}>
+                    <Icon name="chevron-down" class="w-4 h-4" />
+                  </span>
+                </button>
+                <div class={`faq-answer px-5 sm:px-6 pb-6 text-muted-foreground leading-relaxed ${i === 0 ? "" : "hidden"}`}>
+                  {f.a}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
+
+    <ContactSection heading={`Get your free ${d.city} ${SITE.trade} estimate.`} eyebrow={`Serving ${cityState}`} />
+  </main>
+  <Footer />
+</Layout>
+
+<script>
+  // FAQ accordion (matches the homepage behavior)
+  document.querySelectorAll(".faq-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const item = btn.closest(".faq-item") as HTMLElement;
+      const answer = item.querySelector(".faq-answer") as HTMLElement;
+      const icon = item.querySelector(".faq-icon") as HTMLElement;
+      const isOpen = !answer.classList.contains("hidden");
+
+      document.querySelectorAll(".faq-item").forEach((other) => {
+        const otherAnswer = other.querySelector(".faq-answer") as HTMLElement;
+        const otherIcon = other.querySelector(".faq-icon") as HTMLElement;
+        const otherBtn = other.querySelector(".faq-btn") as HTMLButtonElement;
+        otherAnswer.classList.add("hidden");
+        otherIcon.classList.remove("bg-brand-accent", "text-brand-accent-contrast", "rotate-180");
+        otherIcon.classList.add("bg-brand-cream-dark", "text-brand-accent");
+        other.classList.remove("border-brand-accent/40", "shadow-lg");
+        other.classList.add("border-border/60");
+        otherBtn.setAttribute("aria-expanded", "false");
+      });
+
+      if (!isOpen) {
+        answer.classList.remove("hidden");
+        icon.classList.add("bg-brand-accent", "text-brand-accent-contrast", "rotate-180");
+        icon.classList.remove("bg-brand-cream-dark", "text-brand-accent");
+        item.classList.add("border-brand-accent/40", "shadow-lg");
+        item.classList.remove("border-border/60");
+        btn.setAttribute("aria-expanded", "true");
+      }
+    });
+  });
+</script>

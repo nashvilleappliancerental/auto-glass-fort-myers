@@ -1,0 +1,10 @@
+# Netlify deploy settings for the Astro static site.
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+# Add per-site 301 redirects below (e.g. old slugs from a previous site):
+# [[redirects]]
+#   from = "/old-path"
+#   to = "/new-path"
+#   status = 301

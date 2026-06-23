@@ -1,0 +1,26 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import PageHero from "../components/PageHero.astro";
+import ContactSection from "../components/ContactSection.astro";
+import { SITE, tradeCap } from "../data/site";
+
+const title = `Contact ${SITE.name} | Free Quote in ${SITE.address.city}`;
+const description = `Request a free, no-obligation ${SITE.trade} estimate from ${SITE.name}. Call ${SITE.phone} or send us a message — we respond within one business day.`;
+---
+
+<Layout title={title} description={description}>
+  <Header />
+  <main class="pt-20">
+    <PageHero
+      eyebrow="Contact us"
+      title="Tell us about your project."
+      subtitle={`Call ${SITE.phone} or send a message below. We respond within one business day with a free, honest estimate.`}
+      crumbs={[{ label: "Home", href: "/" }, { label: "Contact" }]}
+    />
+
+    <ContactSection eyebrow="Free estimate" />
+  </main>
+  <Footer />
+</Layout>

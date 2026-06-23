@@ -1,0 +1,84 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import PageHero from "../../components/PageHero.astro";
+import CTABand from "../../components/CTABand.astro";
+import Icon from "../../components/Icon.astro";
+import { getCollection } from "astro:content";
+import { SITE, tradeCap, cityState, locationUrl } from "../../data/site";
+
+const locations = (await getCollection("locations")).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+
+// Additional communities served without a dedicated page (the `locations` skill fills this).
+const otherAreas: string[] = [
+  "Sanibel",
+  "Captiva",
+  "Pine Island",
+  "Matlacha",
+  "San Carlos Park",
+  "Iona",
+  "Babcock Ranch",
+  "Punta Gorda",
+];
+
+const title = `${tradeCap} Service Area in ${cityState} | ${SITE.shortName}`;
+const description = `${SITE.name} provides ${SITE.trade} services across ${cityState} and the surrounding area. Find your city.`;
+---
+
+<Layout title={title} description={description}>
+  <Header />
+  <main class="pt-20">
+    <PageHero
+      eyebrow="Coverage"
+      title={`${tradeCap} across ${cityState} & the surrounding area.`}
+      subtitle={`Based in ${cityState}, we serve drivers and businesses throughout the area. Find ${SITE.trade} services in your city below.`}
+      crumbs={[{ label: "Home", href: "/" }, { label: "Service Area" }]}
+    />
+
+    <section class="py-20 sm:py-24">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6">
+        <div class="flex items-end justify-between gap-4 mb-8">
+          <h2 class="text-2xl font-extrabold tracking-tight">Cities we serve</h2>
+          <span class="text-sm text-muted-foreground shrink-0">{locations.length} primary areas</span>
+        </div>
+        <div class="border-t border-border/60">
+          {locations.map((l, i) => (
+            <a
+              href={locationUrl(l)}
+              class="group grid grid-cols-[auto_1fr_auto] items-center gap-5 sm:gap-8 py-7 border-b border-border/60 -mx-4 px-4 sm:-mx-6 sm:px-6 hover:bg-brand-cream-dark/50 transition-colors"
+            >
+              <span class="text-2xl sm:text-4xl font-extrabold tabular-nums text-brand-accent/25 group-hover:text-brand-accent transition-colors">
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <div class="min-w-0">
+                <h3 class="text-xl sm:text-2xl font-bold tracking-tight group-hover:text-brand-accent transition-colors">{l.data.city}, {l.data.state}</h3>
+                <p class="text-muted-foreground leading-relaxed text-[15px] mt-1 max-w-xl">{l.data.summary}</p>
+              </div>
+              <Icon name="arrow-right" class="w-5 h-5 text-brand-accent shrink-0 transition-transform group-hover:translate-x-1.5" />
+            </a>
+          ))}
+        </div>
+
+        {otherAreas.length > 0 && (
+          <div class="mt-12 bg-brand-cream-dark rounded-3xl p-8">
+            <h3 class="font-bold text-lg mb-4 tracking-tight">We also serve</h3>
+            <div class="flex flex-wrap gap-2.5">
+              {otherAreas.map((a) => (
+                <span class="inline-flex items-center gap-1.5 bg-white border border-border/60 px-4 py-2 rounded-full font-semibold text-sm shadow-sm">
+                  <Icon name="map-pin" class="w-3.5 h-3.5 text-brand-accent" /> {a}
+                </span>
+              ))}
+            </div>
+            <p class="text-sm text-muted-foreground mt-5">Don't see your town? <a href="/contact" class="text-brand-accent font-semibold hover:underline">Get in touch</a> — chances are we cover it.</p>
+          </div>
+        )}
+      </div>
+    </section>
+
+    <CTABand />
+  </main>
+  <Footer />
+</Layout>

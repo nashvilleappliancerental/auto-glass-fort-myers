@@ -1,0 +1,155 @@
+@import "tailwindcss";
+
+/*
+  BRAND PALETTE — set per site by the brief / `brand` skill.
+  Components reference brand-* tokens, so remapping the VALUES below re-themes
+  the whole site without touching component markup.
+    brand-charcoal -> primary dark (dark sections, headings on light)
+    brand-accent   -> the single brand accent (buttons, highlights, links)
+    brand-cream    -> warm/neutral off-white background
+  Defaults are an intentionally neutral slate — re-theme before launch.
+*/
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+
+  --color-brand-charcoal: var(--brand-charcoal);
+  --color-brand-accent: var(--brand-accent);
+  --color-brand-accent-dark: var(--brand-accent-dark);
+  --color-brand-accent-contrast: var(--brand-accent-contrast);
+  --color-brand-cream: var(--brand-cream);
+  --color-brand-cream-dark: var(--brand-cream-dark);
+
+  --font-display: var(--font-display);
+  --font-sans: var(--font-sans);
+}
+
+:root {
+  --radius: 0.75rem;
+  --radius-btn: 9999px; /* button corner radius — pill by default, overridden per radius preset */
+
+  /* ── Glass Blue palette (Auto Glass Fort Myers) ── cool, automotive, trust ── */
+  --background: oklch(0.985 0.005 255);
+  --foreground: oklch(0.22 0.02 255);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.22 0.02 255);
+  --primary: oklch(0.24 0.025 255);
+  --primary-foreground: oklch(0.985 0.005 255);
+  --muted: oklch(0.94 0.008 255);
+  --muted-foreground: oklch(0.48 0.02 255);
+  --border: oklch(0.9 0.01 255);
+
+  /* Primary dark — cool near-black (#0F1B2D) */
+  --brand-charcoal: oklch(0.24 0.03 255);
+  /* Accent — Glass Blue (#2F6BFF), vivid azure */
+  --brand-accent: oklch(0.58 0.21 264);
+  --brand-accent-dark: oklch(0.50 0.20 264);
+  /* Text/icon ON the accent — white reads on this medium-dark blue. */
+  --brand-accent-contrast: #ffffff;
+  /* Cool off-white background (#F5F8FC) + soft gray */
+  --brand-cream: oklch(0.985 0.005 255);
+  --brand-cream-dark: oklch(0.95 0.008 255);
+
+  /* Fonts — Space Grotesk (modern technical display) + Inter (body). */
+  --font-display: "Space Grotesk", system-ui, sans-serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+}
+
+/* Radius preset — set by <html data-radius> from design.ts. Overrides the
+   rounded-{sm..4xl} scale globally, so cards/panels reshape without touching markup. */
+:root[data-radius="sharp"] {
+  --radius-sm: 0px; --radius-md: 1px; --radius-lg: 2px; --radius-xl: 2px;
+  --radius-2xl: 3px; --radius-3xl: 4px; --radius-4xl: 6px;
+  --radius-btn: 3px; /* squared buttons */
+}
+:root[data-radius="round"] {
+  --radius-sm: 8px; --radius-md: 10px; --radius-lg: 14px; --radius-xl: 18px;
+  --radius-2xl: 24px; --radius-3xl: 32px; --radius-4xl: 40px;
+}
+/* "soft" = the @theme defaults; no overrides needed. */
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px;
+  }
+}
+
+/* Styling for long-form Markdown bodies (service & location pages). */
+.prose-body {
+  color: var(--color-muted-foreground);
+  line-height: 1.75;
+  font-size: 1.0625rem;
+}
+.prose-body > * + * {
+  margin-top: 1.25rem;
+}
+.prose-body h2 {
+  color: var(--color-foreground);
+  font-family: var(--font-display);
+  font-size: 1.875rem;
+  line-height: 1.15;
+  font-weight: 800;
+  margin-top: 2.5rem;
+}
+.prose-body h2:first-child {
+  margin-top: 0;
+}
+.prose-body h3 {
+  color: var(--color-foreground);
+  font-family: var(--font-display);
+  font-size: 1.375rem;
+  font-weight: 700;
+  margin-top: 2rem;
+}
+.prose-body a {
+  color: var(--brand-accent);
+  font-weight: 600;
+  text-decoration: underline;
+}
+.prose-body ul {
+  list-style: disc;
+  padding-left: 1.5rem;
+}
+.prose-body ol {
+  list-style: decimal;
+  padding-left: 1.5rem;
+}
+.prose-body li + li {
+  margin-top: 0.5rem;
+}
+.prose-body strong {
+  color: var(--color-foreground);
+  font-weight: 700;
+}

@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="700" height="380" viewBox="0 0 700 380" font-family="Segoe UI, Arial, sans-serif">
+  <rect width="700" height="380" fill="#f4f5f7"/>
+  <text x="40" y="44" font-size="22" font-weight="800" fill="#111827">B1 final — thinner pane</text>
+
+  <!-- large tile -->
+  <g transform="translate(40,80)">
+    <rect width="260" height="260" rx="16" fill="#0f1b2d"/>
+    <rect x="83" y="83" width="94" height="94" rx="16" fill="none" stroke="#eef4fb" stroke-width="3.2"/>
+    <g stroke="#2f6bff" stroke-width="5" stroke-linecap="round">
+      <path d="M102,148 L138,105"/>
+      <path d="M123,155 L159,112"/>
+    </g>
+    <path d="M170,76 L174,85 L183,89 L174,93 L170,102 L166,93 L157,89 L166,85 Z" fill="#2f6bff"/>
+    <text x="130" y="228" font-size="15" font-weight="700" fill="#eef4fb" text-anchor="middle">~260px</text>
+  </g>
+
+  <!-- small previews to test legibility -->
+  <g transform="translate(340,80)">
+    <rect width="64" height="64" rx="8" fill="#0f1b2d"/>
+    <rect x="20" y="20" width="24" height="24" rx="5" fill="none" stroke="#eef4fb" stroke-width="1.6"/>
+    <g stroke="#2f6bff" stroke-width="2" stroke-linecap="round"><path d="M25,39 L34,28"/><path d="M30,41 L39,30"/></g>
+    <path d="M43,18 L44.2,20.6 L46.8,21.8 L44.2,23 L43,25.6 L41.8,23 L39.2,21.8 L41.8,20.6 Z" fill="#2f6bff"/>
+    <text x="32" y="84" font-size="13" fill="#374151" text-anchor="middle">64px</text>
+  </g>
+  <g transform="translate(430,80)">
+    <rect width="32" height="32" rx="5" fill="#0f1b2d"/>
+    <rect x="10" y="10" width="12" height="12" rx="2.5" fill="none" stroke="#eef4fb" stroke-width="1"/>
+    <g stroke="#2f6bff" stroke-width="1.2" stroke-linecap="round"><path d="M12.5,19.5 L17,14"/><path d="M15,20.5 L19.5,15"/></g>
+    <path d="M21.5,9 L22.1,10.3 L23.4,10.9 L22.1,11.5 L21.5,12.8 L20.9,11.5 L19.6,10.9 L20.9,10.3 Z" fill="#2f6bff"/>
+    <text x="16" y="52" font-size="13" fill="#374151" text-anchor="middle">32px</text>
+  </g>
+</svg>

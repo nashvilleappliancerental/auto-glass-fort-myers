@@ -1,0 +1,39 @@
+---
+// HERO variant: left-aligned over a full-bleed background photo.
+import Icon from "../../Icon.astro";
+import { SITE, cityState } from "../../../data/site";
+import type { HeroData } from "../types";
+interface Props { hero: HeroData }
+const { hero } = Astro.props;
+---
+<section class="relative isolate overflow-hidden bg-brand-charcoal text-brand-cream">
+  <div class="absolute inset-0 -z-10">
+    <img src="/images/hero.jpg" alt={`${SITE.trade} work in ${cityState}`} class="h-full w-full object-cover" />
+    <div class="absolute inset-0 bg-gradient-to-r from-brand-charcoal/95 via-brand-charcoal/80 to-brand-charcoal/40"></div>
+  </div>
+  <div class="relative max-w-7xl mx-auto px-4 sm:px-6 pt-16 pb-20 sm:pt-20 sm:pb-24">
+    <div class="max-w-3xl">
+      <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur border border-white/15 px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wide mb-6">
+        <Icon name="map-pin" class="w-3.5 h-3.5 text-brand-accent" /> {hero.badge}
+      </div>
+      <h1 class="font-display font-extrabold text-4xl sm:text-5xl lg:text-6xl leading-[1.08] tracking-tight mb-6">
+        {hero.titleLead}<span class="text-brand-accent">{hero.titleAccent}</span>{hero.titleTail}
+      </h1>
+      <p class="text-lg sm:text-xl text-brand-cream/80 mb-8 max-w-xl leading-relaxed">{hero.subhead}</p>
+      <div class="flex flex-col sm:flex-row gap-3">
+        <a href="/contact" class="group inline-flex items-center justify-center gap-2 bg-brand-accent hover:bg-brand-accent-dark text-brand-accent-contrast font-bold text-base px-7 py-4 rounded-[var(--radius-btn)] transition-all hover:shadow-2xl hover:shadow-brand-accent/40 hover:-translate-y-0.5">
+          Get a Free Estimate
+          <Icon name="arrow-right" class="w-4 h-4 transition-transform group-hover:translate-x-1" />
+        </a>
+        <a href={SITE.phoneHref} class="inline-flex items-center justify-center gap-2 bg-white/5 hover:bg-white/10 backdrop-blur border border-white/20 text-white font-semibold text-base px-7 py-4 rounded-[var(--radius-btn)] transition-colors">
+          <Icon name="phone" class="w-5 h-5" /> Call {SITE.phone}
+        </a>
+      </div>
+      <div class="mt-10 flex flex-wrap items-center gap-x-8 gap-y-4 text-sm text-brand-cream/75">
+        {hero.badges.map((b) => (
+          <div class="flex items-center gap-2"><Icon name="badge-check" class="w-4 h-4 text-brand-accent" /> {b}</div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

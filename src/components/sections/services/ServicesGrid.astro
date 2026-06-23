@@ -1,0 +1,26 @@
+---
+// SERVICES variant: compact 4-up icon cards.
+import ServiceCard from "../../ServiceCard.astro";
+import { SITE, tradeCap, cityState } from "../../../data/site";
+import type { ServiceItem } from "../types";
+interface Props { services: ServiceItem[] }
+const { services } = Astro.props;
+---
+<section id="services" class="py-24 sm:py-28">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6">
+    <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-14">
+      <div>
+        <p class="text-brand-accent font-bold uppercase tracking-[0.2em] text-xs mb-3">What we do</p>
+        <h2 class="text-4xl sm:text-5xl font-extrabold tracking-tight max-w-xl leading-[1.05]">{tradeCap} work, done right.</h2>
+      </div>
+      <p class="text-muted-foreground max-w-md leading-relaxed">
+        Residential and commercial {SITE.trade} across {cityState} and the surrounding area — built to last.
+      </p>
+    </div>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      {services.map((s) => (
+        <ServiceCard href={`/${s.id}`} icon={s.icon} title={s.title} desc={s.summary} />
+      ))}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,59 @@
+---
+// FAQ section: accordion. Carries its own toggle script.
+import Icon from "../../Icon.astro";
+import type { FaqItem } from "../types";
+interface Props { faqs: FaqItem[] }
+const { faqs } = Astro.props;
+---
+<section class="py-24 sm:py-28 bg-brand-cream-dark">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6">
+    <div class="text-center mb-12">
+      <p class="text-brand-accent font-bold uppercase tracking-[0.2em] text-xs mb-3">Answers</p>
+      <h2 class="text-4xl sm:text-5xl font-extrabold tracking-tight leading-[1.05]">Frequently asked questions.</h2>
+    </div>
+    <div class="space-y-3">
+      {faqs.map((f, i) => (
+        <div class={`faq-item bg-white border rounded-2xl overflow-hidden transition-all ${i === 0 ? "border-brand-accent/40 shadow-lg" : "border-border/60"}`}>
+          <button class="faq-btn w-full flex items-center justify-between gap-4 p-5 sm:p-6 text-left font-bold text-base sm:text-lg hover:bg-brand-cream/40" aria-expanded={i === 0 ? "true" : "false"}>
+            <span>{f.q}</span>
+            <span class={`faq-icon w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-all ${i === 0 ? "bg-brand-accent text-brand-accent-contrast rotate-180" : "bg-brand-cream-dark text-brand-accent"}`}>
+              <Icon name="chevron-down" class="w-4 h-4" />
+            </span>
+          </button>
+          <div class={`faq-answer px-5 sm:px-6 pb-6 text-muted-foreground leading-relaxed ${i === 0 ? "" : "hidden"}`}>{f.a}</div>
+        </div>
+      ))}
+    </div>
+    <div class="text-center mt-10">
+      <a href="/faq" class="inline-flex items-center gap-2 font-bold text-brand-accent hover:gap-3 transition-all">See all FAQs <Icon name="arrow-right" class="w-4 h-4" /></a>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll(".faq-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const item = btn.closest(".faq-item") as HTMLElement;
+      const answer = item.querySelector(".faq-answer") as HTMLElement;
+      const icon = item.querySelector(".faq-icon") as HTMLElement;
+      const isOpen = !answer.classList.contains("hidden");
+      document.querySelectorAll(".faq-item").forEach((other) => {
+        other.querySelector(".faq-answer")!.classList.add("hidden");
+        const oi = other.querySelector(".faq-icon") as HTMLElement;
+        oi.classList.remove("bg-brand-accent", "text-brand-accent-contrast", "rotate-180");
+        oi.classList.add("bg-brand-cream-dark", "text-brand-accent");
+        other.classList.remove("border-brand-accent/40", "shadow-lg");
+        other.classList.add("border-border/60");
+        other.querySelector(".faq-btn")!.setAttribute("aria-expanded", "false");
+      });
+      if (!isOpen) {
+        answer.classList.remove("hidden");
+        icon.classList.add("bg-brand-accent", "text-brand-accent-contrast", "rotate-180");
+        icon.classList.remove("bg-brand-cream-dark", "text-brand-accent");
+        item.classList.add("border-brand-accent/40", "shadow-lg");
+        item.classList.remove("border-border/60");
+        btn.setAttribute("aria-expanded", "true");
+      }
+    });
+  });
+</script>

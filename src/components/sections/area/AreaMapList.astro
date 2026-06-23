@@ -1,0 +1,53 @@
+---
+// AREA variant: decorative map (desktop) + clickable city list.
+import Icon from "../../Icon.astro";
+import { cityState } from "../../../data/site";
+import type { AreaLocation, MapPin } from "../types";
+interface Props { locations: AreaLocation[]; pins: MapPin[] }
+const { locations, pins } = Astro.props;
+---
+<section id="area" class="py-24 sm:py-28">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6">
+    <div class="max-w-2xl mb-12">
+      <p class="text-brand-accent font-bold uppercase tracking-[0.2em] text-xs mb-3">Service area</p>
+      <h2 class="text-4xl sm:text-5xl font-extrabold mb-5 tracking-tight leading-[1.05]">Proudly serving {cityState} & the surrounding area.</h2>
+      <p class="text-lg text-muted-foreground leading-relaxed">Based in {cityState}, we serve drivers and businesses across the area.</p>
+    </div>
+    <div class="grid lg:grid-cols-2 gap-8 lg:gap-12 items-stretch">
+      <div class="relative hidden lg:block rounded-3xl overflow-hidden bg-brand-charcoal border border-white/10 lg:min-h-full">
+        <div class="absolute inset-0 opacity-[0.12]" style="background-image:radial-gradient(circle,#fff 1px,transparent 1px);background-size:22px 22px;"></div>
+        <div class="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 rounded-full bg-brand-accent/20 blur-[80px]"></div>
+        {pins.map((p) => (
+          <div class="absolute -translate-x-1/2 -translate-y-1/2 flex flex-col items-center gap-1.5" style={`top:${p.top};left:${p.left}`}>
+            <span class="relative flex items-center justify-center">
+              {p.hq && <span class="absolute inline-flex h-4 w-4 rounded-full bg-brand-accent opacity-60 animate-ping"></span>}
+              <span class={p.hq ? "relative inline-flex w-4 h-4 rounded-full bg-brand-accent ring-4 ring-brand-accent/25" : "relative inline-flex w-2.5 h-2.5 rounded-full bg-brand-cream/80"}></span>
+            </span>
+            <span class={p.hq ? "text-[11px] font-bold text-white whitespace-nowrap" : "text-[11px] font-semibold text-brand-cream/70 whitespace-nowrap"}>{p.city}{p.hq ? " · HQ" : ""}</span>
+          </div>
+        ))}
+      </div>
+      <div class="flex flex-col">
+        <ul class="flex-1 divide-y divide-border/60">
+          {locations.map((l) => (
+            <li>
+              <a href={l.href} class="group flex items-center gap-4 py-4">
+                <span class="w-10 h-10 shrink-0 rounded-xl bg-brand-accent/10 flex items-center justify-center group-hover:bg-brand-accent/20 transition-colors">
+                  <Icon name="map-pin" class="w-5 h-5 text-brand-accent" />
+                </span>
+                <div class="flex-1 min-w-0">
+                  <h3 class="font-bold tracking-tight group-hover:text-brand-accent transition-colors">{l.city}, {l.state}</h3>
+                  <p class="text-sm text-muted-foreground leading-snug truncate">{l.summary}</p>
+                </div>
+                <Icon name="arrow-right" class="w-4 h-4 text-brand-accent shrink-0 transition-transform group-hover:translate-x-1" />
+              </a>
+            </li>
+          ))}
+        </ul>
+        <a href="/service-area" class="mt-6 inline-flex items-center gap-1.5 font-semibold text-brand-accent hover:gap-2.5 transition-all">
+          See all service areas <Icon name="arrow-right" class="w-4 h-4" />
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

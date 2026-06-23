@@ -1,0 +1,36 @@
+---
+// HERO variant: centered text on a solid brand background (no photo), with a
+// soft accent glow + dot texture. A cleaner, more "brand-forward" look.
+import Icon from "../../Icon.astro";
+import { SITE } from "../../../data/site";
+import type { HeroData } from "../types";
+interface Props { hero: HeroData }
+const { hero } = Astro.props;
+---
+<section class="relative isolate overflow-hidden bg-brand-charcoal text-brand-cream">
+  <div class="absolute inset-0 -z-10 opacity-[0.10]" style="background-image:radial-gradient(circle,#fff 1px,transparent 1px);background-size:24px 24px;"></div>
+  <div class="pointer-events-none absolute -z-10 top-0 left-1/2 -translate-x-1/2 w-[900px] h-[500px] rounded-full bg-brand-accent/15 blur-[140px]"></div>
+  <div class="relative max-w-4xl mx-auto px-4 sm:px-6 pt-20 pb-20 sm:pt-24 sm:pb-24 text-center">
+    <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur border border-white/15 px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wide mb-7">
+      <Icon name="map-pin" class="w-3.5 h-3.5 text-brand-accent" /> {hero.badge}
+    </div>
+    <h1 class="font-display font-extrabold text-4xl sm:text-5xl lg:text-6xl leading-[1.08] tracking-tight mb-6 mx-auto max-w-3xl">
+      {hero.titleLead}<span class="text-brand-accent">{hero.titleAccent}</span>{hero.titleTail}
+    </h1>
+    <p class="text-lg sm:text-xl text-brand-cream/80 mb-9 max-w-2xl mx-auto leading-relaxed">{hero.subhead}</p>
+    <div class="flex flex-col sm:flex-row gap-3 justify-center">
+      <a href="/contact" class="group inline-flex items-center justify-center gap-2 bg-brand-accent hover:bg-brand-accent-dark text-brand-accent-contrast font-bold text-base px-7 py-4 rounded-[var(--radius-btn)] transition-all hover:shadow-2xl hover:shadow-brand-accent/40 hover:-translate-y-0.5">
+        Get a Free Estimate
+        <Icon name="arrow-right" class="w-4 h-4 transition-transform group-hover:translate-x-1" />
+      </a>
+      <a href={SITE.phoneHref} class="inline-flex items-center justify-center gap-2 bg-white/5 hover:bg-white/10 backdrop-blur border border-white/20 text-white font-semibold text-base px-7 py-4 rounded-[var(--radius-btn)] transition-colors">
+        <Icon name="phone" class="w-5 h-5" /> Call {SITE.phone}
+      </a>
+    </div>
+    <div class="mt-10 flex flex-wrap items-center justify-center gap-x-8 gap-y-4 text-sm text-brand-cream/75">
+      {hero.badges.map((b) => (
+        <div class="flex items-center gap-2"><Icon name="badge-check" class="w-4 h-4 text-brand-accent" /> {b}</div>
+      ))}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,33 @@
+---
+// REVIEWS section (rendered only when there are real reviews).
+import Icon from "../../Icon.astro";
+import type { ReviewItem } from "../types";
+interface Props { reviews: ReviewItem[] }
+const { reviews } = Astro.props;
+---
+<section id="reviews" class="relative py-24 sm:py-28 bg-brand-charcoal text-brand-cream overflow-hidden">
+  <div class="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] rounded-full bg-brand-accent/10 blur-[120px]"></div>
+  <div class="relative max-w-7xl mx-auto px-4 sm:px-6">
+    <div class="text-center mb-14 max-w-2xl mx-auto">
+      <p class="text-brand-accent font-bold uppercase tracking-[0.2em] text-xs mb-3">Reviews</p>
+      <h2 class="text-4xl sm:text-5xl font-extrabold tracking-tight leading-[1.05]">What our neighbors are saying.</h2>
+    </div>
+    <div class="grid md:grid-cols-3 gap-5">
+      {reviews.map((r) => (
+        <div class="bg-white/[0.04] backdrop-blur border border-white/10 p-7 rounded-3xl">
+          <div class="flex gap-0.5 mb-5 text-brand-accent">
+            {Array.from({ length: 5 }).map(() => <Icon name="star" class="w-5 h-5" />)}
+          </div>
+          <p class="text-brand-cream/85 leading-relaxed mb-6 text-[15px]">"{r.text}"</p>
+          <div class="pt-5 border-t border-white/10 flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-brand-accent to-brand-accent-dark flex items-center justify-center font-bold text-sm text-white">{r.name[0]}</div>
+            <div>
+              <div class="font-bold text-sm">{r.name}</div>
+              <div class="text-xs text-brand-cream/60">{r.area}</div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

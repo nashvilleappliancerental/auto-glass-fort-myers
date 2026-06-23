@@ -1,0 +1,32 @@
+---
+// AREA variant: numbered editorial directory of cities (no map).
+import Icon from "../../Icon.astro";
+import { cityState } from "../../../data/site";
+import type { AreaLocation, MapPin } from "../types";
+interface Props { locations: AreaLocation[]; pins?: MapPin[] }
+const { locations } = Astro.props;
+---
+<section id="area" class="py-24 sm:py-28">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6">
+    <div class="max-w-2xl mb-10">
+      <p class="text-brand-accent font-bold uppercase tracking-[0.2em] text-xs mb-3">Service area</p>
+      <h2 class="text-4xl sm:text-5xl font-extrabold mb-5 tracking-tight leading-[1.05]">Proudly serving {cityState} & the surrounding area.</h2>
+      <p class="text-lg text-muted-foreground leading-relaxed">Based in {cityState}, we serve drivers and businesses across the area.</p>
+    </div>
+    <div class="border-t border-border/60">
+      {locations.map((l, i) => (
+        <a href={l.href} class="group grid grid-cols-[auto_1fr_auto] items-center gap-5 sm:gap-8 py-7 border-b border-border/60 -mx-4 px-4 sm:-mx-6 sm:px-6 hover:bg-brand-cream-dark/50 transition-colors">
+          <span class="text-2xl sm:text-4xl font-extrabold tabular-nums text-brand-accent/25 group-hover:text-brand-accent transition-colors">{String(i + 1).padStart(2, "0")}</span>
+          <div class="min-w-0">
+            <h3 class="text-xl sm:text-2xl font-bold tracking-tight group-hover:text-brand-accent transition-colors">{l.city}, {l.state}</h3>
+            <p class="text-muted-foreground leading-relaxed text-[15px] mt-1 max-w-xl">{l.summary}</p>
+          </div>
+          <Icon name="arrow-right" class="w-5 h-5 text-brand-accent shrink-0 transition-transform group-hover:translate-x-1.5" />
+        </a>
+      ))}
+    </div>
+    <a href="/service-area" class="mt-10 inline-flex items-center gap-1.5 font-semibold text-brand-accent hover:gap-2.5 transition-all">
+      See all service areas <Icon name="arrow-right" class="w-4 h-4" />
+    </a>
+  </div>
+</section>

@@ -1,0 +1,51 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import Icon from "../components/Icon.astro";
+import { SITE } from "../data/site";
+import { getCollection } from "astro:content";
+
+const services = (await getCollection("services")).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+---
+
+<Layout title={`Page Not Found | ${SITE.name}`} description="Sorry, we couldn't find that page.">
+  <Header />
+  <main class="pt-20">
+    <section class="relative overflow-hidden bg-brand-charcoal text-brand-cream">
+      <div class="pointer-events-none absolute -top-32 -left-32 w-[460px] h-[460px] rounded-full bg-brand-accent/25 blur-[120px]"></div>
+      <div class="relative max-w-3xl mx-auto px-4 sm:px-6 py-24 sm:py-32 text-center">
+        <p class="font-display font-extrabold text-7xl sm:text-8xl text-brand-accent">404</p>
+        <h1 class="font-display font-extrabold text-3xl sm:text-4xl tracking-tight mt-4 mb-4">This page couldn't be found.</h1>
+        <p class="text-brand-cream/75 leading-relaxed max-w-xl mx-auto mb-8">
+          The page you're looking for doesn't exist or may have moved. Let's get you back on track.
+        </p>
+        <div class="flex flex-col sm:flex-row justify-center gap-3">
+          <a href="/" class="inline-flex items-center justify-center gap-2 bg-brand-accent hover:bg-brand-accent-dark text-brand-accent-contrast font-bold px-7 py-4 rounded-[var(--radius-btn)] transition-colors">
+            <Icon name="arrow-right" class="w-5 h-5" /> Back to home
+          </a>
+          <a href={SITE.phoneHref} class="inline-flex items-center justify-center gap-2 bg-white/5 hover:bg-white/10 border border-white/20 text-white font-semibold px-7 py-4 rounded-[var(--radius-btn)] transition-colors">
+            <Icon name="phone" class="w-5 h-5" /> {SITE.phone}
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-16 sm:py-20">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6">
+        <h2 class="text-xl font-bold tracking-tight mb-6 text-center">Popular pages</h2>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <a href="/services" class="bg-white border border-border/60 hover:border-brand-accent/40 hover:-translate-y-1 hover:shadow-lg transition-all p-5 rounded-2xl font-semibold">All Services</a>
+          <a href="/service-area" class="bg-white border border-border/60 hover:border-brand-accent/40 hover:-translate-y-1 hover:shadow-lg transition-all p-5 rounded-2xl font-semibold">Service Area</a>
+          <a href="/contact" class="bg-white border border-border/60 hover:border-brand-accent/40 hover:-translate-y-1 hover:shadow-lg transition-all p-5 rounded-2xl font-semibold">Free Estimate</a>
+          {services.slice(0, 3).map((s) => (
+            <a href={`/${s.id}`} class="bg-white border border-border/60 hover:border-brand-accent/40 hover:-translate-y-1 hover:shadow-lg transition-all p-5 rounded-2xl font-semibold">{s.data.title}</a>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>

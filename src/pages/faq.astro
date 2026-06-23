@@ -1,0 +1,122 @@
+---
+// Dedicated FAQ page. Renders ONLY the curated general questions from faq.ts
+// (unique to this page — no duplication of homepage/service/city FAQs) plus an
+// internal-link hub to the detail pages, where their own FAQs live. Emits a
+// single FAQPage schema for the curated set.
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import PageHero from "../components/PageHero.astro";
+import ContactSection from "../components/ContactSection.astro";
+import Icon from "../components/Icon.astro";
+import { getCollection } from "astro:content";
+import { SITE, tradeCap, cityState, locationUrl } from "../data/site";
+import { FAQ_PAGE } from "../data/faq";
+
+const services = (await getCollection("services"))
+  .sort((a, b) => a.data.order - b.data.order)
+  .map((s) => ({ title: s.data.title, href: `/${s.id}` }));
+
+const locations = (await getCollection("locations"))
+  .sort((a, b) => a.data.order - b.data.order)
+  .map((l) => ({ city: l.data.city, state: l.data.state, href: locationUrl(l) }));
+
+const title = `FAQ | ${tradeCap} Questions in ${cityState} | ${SITE.shortName}`;
+const description = `Common questions about ${SITE.trade} in ${cityState} and the surrounding area — quotes, scheduling, payment, insurance, and what to expect. Get a free quote.`;
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: FAQ_PAGE.map((f) => ({
+    "@type": "Question",
+    name: f.q,
+    acceptedAnswer: { "@type": "Answer", text: f.a },
+  })),
+};
+---
+
+<Layout title={title} description={description} schema={[faqSchema]}>
+  <Header />
+  <main id="top" class="pt-20">
+    <PageHero
+      eyebrow="FAQ"
+      title={`${tradeCap} questions, answered.`}
+      subtitle={`The questions we get asked most about ${SITE.trade} in ${cityState} — how to book, what it costs, insurance, and what to expect. Don't see yours? Just reach out.`}
+      crumbs={[{ label: "Home", href: "/" }, { label: "FAQ" }]}
+    />
+
+    <section class="py-20 sm:py-24">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6">
+        <div class="space-y-3">
+          {FAQ_PAGE.map((f) => (
+            <div class="faq-item bg-white border border-border/60 rounded-2xl overflow-hidden">
+              <button class="faq-btn w-full flex items-center justify-between gap-4 p-5 sm:p-6 text-left font-bold text-base sm:text-lg hover:bg-brand-cream/40" aria-expanded="false">
+                <span>{f.q}</span>
+                <span class="faq-icon w-8 h-8 rounded-full flex items-center justify-center shrink-0 bg-brand-cream-dark text-brand-accent transition-all">
+                  <Icon name="chevron-down" class="w-4 h-4" />
+                </span>
+              </button>
+              <div class="faq-answer px-5 sm:px-6 pb-6 text-muted-foreground leading-relaxed hidden">{f.a}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Internal-link hub: detailed, service- and city-specific questions live on those pages. -->
+    <section class="pb-20 sm:pb-24">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6">
+        <div class="bg-brand-cream-dark rounded-3xl p-8 sm:p-10">
+          <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight mb-2">Looking for something more specific?</h2>
+          <p class="text-muted-foreground mb-8 max-w-2xl">Each service and service-area page answers its own detailed questions. Jump straight to the one you need.</p>
+          <div class="grid sm:grid-cols-2 gap-8">
+            <div>
+              <p class="font-bold uppercase tracking-[0.18em] text-xs text-brand-accent mb-4">Services</p>
+              <ul class="space-y-2">
+                {services.map((s) => (
+                  <li>
+                    <a href={s.href} class="inline-flex items-center gap-2 font-semibold hover:text-brand-accent transition-colors">
+                      <Icon name="arrow-right" class="w-4 h-4 text-brand-accent" /> {s.title}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <p class="font-bold uppercase tracking-[0.18em] text-xs text-brand-accent mb-4">Service Area</p>
+              <ul class="space-y-2">
+                {locations.map((l) => (
+                  <li>
+                    <a href={l.href} class="inline-flex items-center gap-2 font-semibold hover:text-brand-accent transition-colors">
+                      <Icon name="map-pin" class="w-4 h-4 text-brand-accent" /> {l.city}, {l.state}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <ContactSection />
+  </main>
+  <Footer />
+</Layout>
+
+<script>
+  document.querySelectorAll(".faq-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const item = btn.closest(".faq-item") as HTMLElement;
+      const answer = item.querySelector(".faq-answer") as HTMLElement;
+      const icon = item.querySelector(".faq-icon") as HTMLElement;
+      const open = answer.classList.toggle("hidden") === false;
+      icon.classList.toggle("rotate-180", open);
+      icon.classList.toggle("bg-brand-accent", open);
+      icon.classList.toggle("text-brand-accent-contrast", open);
+      icon.classList.toggle("bg-brand-cream-dark", !open);
+      icon.classList.toggle("text-brand-accent", !open);
+      btn.setAttribute("aria-expanded", String(open));
+    });
+  });
+</script>
