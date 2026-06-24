@@ -64,4 +64,4 @@ Glass damage spreads, and Southwest Florida is about the worst place for it. Dai
 
 ## Mobile chip repair, wherever you are
 
-We come to you anywhere in Fort Myers and nearby [Lehigh Acres](/auto-glass-lehigh-acres-fl), clean the break, inject clear resin, and cure it smooth. Many comprehensive insurance policies cover chip repair, often with little or nothing out of pocket. We'll help you check. [Send us a photo](/contact) and we'll tell you whether a repair will hold.
+We come to you anywhere in Fort Myers and nearby [Lehigh Acres](/auto-glass-lehigh-acres-fl), clean the break, inject clear resin, and cure it smooth. Many comprehensive insurance policies cover chip repair, often with little or nothing out of pocket. Here's [how Florida's free windshield law works](/guide/florida-free-windshield-replacement-law), and we'll help you check your own policy. [Send us a photo](/contact) and we'll tell you whether a repair will hold.

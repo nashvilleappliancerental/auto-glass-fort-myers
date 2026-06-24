@@ -18,9 +18,14 @@ const mainPages = [
   { href: "/", label: "Home" },
   { href: "/services", label: `${tradeCap} Services` },
   { href: "/service-area", label: "Service Area" },
+  { href: "/guide", label: "Guides" },
   { href: "/about", label: "About Us" },
   { href: "/faq", label: "FAQ" },
   { href: "/contact", label: "Contact" },
+];
+
+const guidePages = [
+  { href: "/guide/florida-free-windshield-replacement-law", label: "Florida's Free Windshield Replacement Law" },
 ];
 
 const title = `Site Map | ${SITE.name}`;
@@ -38,7 +43,7 @@ const description = `Browse every page on the ${SITE.name} website: ${SITE.trade
     />
 
     <section class="py-20 sm:py-24">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 grid md:grid-cols-3 gap-10 lg:gap-16">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 grid md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-16">
         <!-- Main pages -->
         <div>
           <p class="text-brand-accent font-bold uppercase tracking-[0.2em] text-xs mb-5">Main pages</p>
@@ -78,6 +83,21 @@ const description = `Browse every page on the ${SITE.name} website: ${SITE.trade
                 <a href={locationUrl(l)} class="group inline-flex items-center gap-2 font-semibold hover:text-brand-accent transition-colors">
                   <Icon name="map-pin" class="w-4 h-4 text-brand-accent shrink-0" />
                   {tradeCap} in {l.data.city}, {l.data.state}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <!-- Guides -->
+        <div>
+          <p class="text-brand-accent font-bold uppercase tracking-[0.2em] text-xs mb-5">Guides</p>
+          <ul class="space-y-3">
+            {guidePages.map((g) => (
+              <li>
+                <a href={g.href} class="group inline-flex items-center gap-2 font-semibold hover:text-brand-accent transition-colors">
+                  <Icon name="arrow-right" class="w-4 h-4 text-brand-accent transition-transform group-hover:translate-x-1" />
+                  {g.label}
                 </a>
               </li>
             ))}

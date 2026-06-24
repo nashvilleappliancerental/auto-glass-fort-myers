@@ -1,0 +1,219 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import PageHero from "../../components/PageHero.astro";
+import Icon from "../../components/Icon.astro";
+import ContactSection from "../../components/ContactSection.astro";
+import { SITE } from "../../data/site";
+
+const title = "Florida's Free Windshield Replacement Law, Explained (2026)";
+const description =
+  "With comprehensive coverage, Florida waives your deductible on windshield damage, so the glass costs you $0. Here's how it works in 2026, what changed in 2023, and how to use it.";
+const pageUrl = `${SITE.url}/guide/florida-free-windshield-replacement-law`;
+
+// Visible FAQ content, also emitted as FAQPage structured data below.
+const faqs = [
+  {
+    q: "Is windshield replacement really free in Florida?",
+    a: "If your auto policy includes comprehensive coverage, Florida Statute 627.7288 says your deductible does not apply to windshield damage, so the glass itself costs you nothing out of pocket. You still pay your premium, and the waiver only covers the windshield. It is not automatic for every policy, so it is worth confirming your coverage first.",
+  },
+  {
+    q: "Does the law cover back glass or side windows too?",
+    a: "No. Statute 627.7288 is specific to the windshield. Back glass, door glass, and quarter glass are not covered by the deductible waiver, so your normal comprehensive deductible can apply to those. We will give you an honest quote either way.",
+  },
+  {
+    q: "Do I have to use the shop my insurance company recommends?",
+    a: "No. You choose your own shop, and a 2023 law (SB 7052) reaffirmed that an insurer cannot force you to a specific location. The one exception is if you accepted a discounted policy with a managed-repair arrangement, which may route the work through the insurer's program. Check your policy if you are not sure.",
+  },
+  {
+    q: "Will a windshield claim raise my insurance rates?",
+    a: "A comprehensive glass claim is not an at-fault accident, and many insurers do not treat it the same way. Rate impact varies by company and history, so the honest answer is to ask your insurer before you file. We are happy to help you think it through.",
+  },
+  {
+    q: "What if I only carry liability coverage?",
+    a: "Then the deductible waiver does not help you, because 627.7288 applies to comprehensive (or combined additional) coverage. With liability-only, a windshield is an out-of-pocket repair or replacement. We give straight quotes with no surprises.",
+  },
+  {
+    q: "Does it cover ADAS calibration after a replacement?",
+    a: "If your vehicle has cameras for lane-keeping or automatic braking, it usually needs calibration after a windshield replacement, and that should be part of doing the job correctly. Calibration is generally handled with the glass claim, but confirm coverage with your insurer so there are no surprises.",
+  },
+];
+
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  headline: title,
+  description,
+  datePublished: "2026-06-24",
+  dateModified: "2026-06-24",
+  author: { "@type": "Organization", name: SITE.name, url: SITE.url },
+  publisher: { "@type": "Organization", name: SITE.name, url: SITE.url },
+  mainEntityOfPage: pageUrl,
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: SITE.url },
+    { "@type": "ListItem", position: 2, name: "Guides", item: `${SITE.url}/guide` },
+    { "@type": "ListItem", position: 3, name: "Florida Windshield Law", item: pageUrl },
+  ],
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((f) => ({
+    "@type": "Question",
+    name: f.q,
+    acceptedAnswer: { "@type": "Answer", text: f.a },
+  })),
+};
+---
+
+<Layout title={title} description={description} schema={[articleSchema, breadcrumbSchema, faqSchema]}>
+  <Header />
+  <main class="pt-20">
+    <PageHero
+      eyebrow="Guide"
+      title="Florida's Free Windshield Replacement Law, Explained"
+      subtitle="Carry comprehensive coverage? Florida says your deductible can't be applied to windshield damage. Here's how that works in 2026, what changed in 2023, and how to actually use it."
+      crumbs={[{ label: "Home", href: "/" }, { label: "Guides", href: "/guide" }, { label: "Florida Windshield Law" }]}
+    />
+
+    <section class="py-16 sm:py-20">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6">
+
+        <!-- TL;DR -->
+        <div class="bg-brand-charcoal text-brand-cream rounded-3xl p-7 sm:p-8 mb-12 shadow-sm">
+          <p class="text-brand-accent font-bold uppercase tracking-[0.2em] text-xs mb-3">The short version</p>
+          <p class="text-brand-cream/85 leading-relaxed">
+            If your Florida auto policy includes <strong class="text-white">comprehensive coverage</strong>, the state says your
+            deductible can't be applied to windshield damage. The glass, repaired or replaced, costs you
+            <strong class="text-white">nothing out of pocket</strong>. That law (Florida Statute 627.7288) is still on the books in
+            2026. What changed recently isn't the $0 part. It's the fine print around it, and that's where most drivers get tripped up.
+          </p>
+        </div>
+
+        <div class="prose-body">
+          <h2>What the law actually says</h2>
+          <p>
+            The whole thing is one sentence. Florida Statute 627.7288 reads that the deductible provisions of a motor vehicle policy
+            "providing comprehensive coverage or combined additional coverage shall not be applicable to damage to the windshield."
+          </p>
+          <p>
+            In plain English: carry comprehensive, and your deductible sits out when it comes to your windshield. The statute just says
+            "damage." It doesn't separate a small rock chip from a full replacement, so both are treated the same way under your policy.
+            A quick <a href="/windshield-repair">rock chip repair</a> and a full
+            <a href="/windshield-replacement">windshield replacement</a> are covered on the same terms.
+          </p>
+          <p>
+            One detail that trips people up: this law is about the <strong>windshield</strong> specifically. It doesn't cover
+            <a href="/back-glass-replacement">back glass</a> or <a href="/side-window-replacement">door and side windows</a>, so your
+            normal deductible can still apply to those.
+          </p>
+
+          <h2>Who qualifies, and who doesn't</h2>
+        </div>
+
+        <div class="grid sm:grid-cols-2 gap-4 my-8">
+          <div class="bg-white border border-border/60 rounded-2xl p-6 shadow-sm">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="w-7 h-7 rounded-lg bg-brand-accent/10 flex items-center justify-center">
+                <Icon name="badge-check" class="w-4 h-4 text-brand-accent" />
+              </span>
+              <h3 class="font-bold tracking-tight">Deductible waived</h3>
+            </div>
+            <ul class="text-sm text-muted-foreground space-y-2 leading-relaxed">
+              <li>Comprehensive (or combined additional) coverage on a Florida policy</li>
+              <li>Damage to the windshield: chip, crack, or full break</li>
+              <li>Repair or replacement, your choice of shop</li>
+            </ul>
+          </div>
+          <div class="bg-white border border-border/60 rounded-2xl p-6 shadow-sm">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="w-7 h-7 rounded-lg bg-brand-charcoal/5 flex items-center justify-center">
+                <Icon name="x" class="w-4 h-4 text-brand-charcoal/60" />
+              </span>
+              <h3 class="font-bold tracking-tight">Deductible still applies</h3>
+            </div>
+            <ul class="text-sm text-muted-foreground space-y-2 leading-relaxed">
+              <li>Liability-only policy with no comprehensive coverage</li>
+              <li>Back glass, door glass, or quarter glass</li>
+              <li>Policies issued outside Florida</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="prose-body">
+          <h2>So is it really free?</h2>
+          <p>
+            The deductible waiver is the free part. It means the windshield work itself runs you $0 when comprehensive coverage applies.
+            You're still paying your premium every month, and that hasn't changed. If your car has cameras for lane-keeping or automatic
+            braking, it'll likely need <a href="/adas-calibration">ADAS calibration</a> after a replacement, and that should be part of
+            doing the job right, handled with the same claim. Confirm that piece with your insurer so nothing surprises you on the bill.
+          </p>
+
+          <h2>What changed in 2023 (the part nobody explains well)</h2>
+          <p>
+            Two laws passed in 2023, and neither one took away your $0 windshield. Here's what they actually did.
+          </p>
+          <p>
+            <strong>HB 837 (effective March 24, 2023)</strong> ended one-way attorney's fees and assignment of benefits for auto-glass
+            claims. Remember the folks set up in gas station parking lots, offering a gift card or a free dinner to "sign right here" for
+            a new windshield? They'd take over your claim and sue your insurer for an inflated amount. That whole hustle is basically gone
+            now. For an honest driver, it just means you deal with your own insurer and pick your own shop. Cleaner, less drama.
+          </p>
+          <p>
+            <strong>SB 7052 (effective June 9, 2023)</strong> lets an insurer offer you a policy with a managed-repair arrangement for
+            glass in exchange for a real premium discount, if you agree to it. They still can't force you to a specific shop. So if you
+            took that kind of discounted policy, your windshield claim might run through the insurer's program. That's exactly why we never
+            tell anyone "it's automatically free, go anywhere, no questions." It comes down to your specific policy, and we're glad to look
+            at it with you.
+          </p>
+
+          <h2>How to actually use it</h2>
+          <ol>
+            <li>Confirm you carry comprehensive coverage. Check your declarations page or ask your agent.</li>
+            <li>Don't wait. In our heat, a small chip spreads into a long crack faster than you'd think.</li>
+            <li>Open a glass claim with your insurer, or call a shop that bills insurance directly and let them handle the paperwork.</li>
+            <li>Pick your shop. It's your call by law, no matter who suggests otherwise.</li>
+            <li>Make sure ADAS calibration is done if your vehicle needs it.</li>
+            <li>Respect the safe drive-away time before you get back on the road.</li>
+          </ol>
+
+          <h2>Why Southwest Florida drivers shouldn't sit on a chip</h2>
+          <p>
+            Our heat and UV push a small chip into a spreading crack quicker than they would up north. Love-bug season around May and
+            September coats and pits the glass, and daily miles on I-75 and US-41 kick up gravel that chips it in the first place. A rock
+            chip caught early is often a fast repair that keeps your factory glass. Wait too long and it becomes a full replacement. Either
+            way your deductible sits out, but the repair is quicker and easier on your car. If you're anywhere in
+            <a href="/service-area">Fort Myers and the surrounding area</a>, we come to you.
+          </p>
+
+          <h2>Common questions</h2>
+          {faqs.map((f) => (
+            <Fragment>
+              <h3>{f.q}</h3>
+              <p>{f.a}</p>
+            </Fragment>
+          ))}
+
+          <p class="text-sm text-muted-foreground border-t border-border/60 pt-6 mt-10">
+            This is general information for Florida drivers, not legal or insurance advice. What's covered comes down to your specific
+            policy. When in doubt, check with your insurer or agent, and <a href="/contact">reach out to us</a> if you'd like a hand
+            sorting it out.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <ContactSection
+      heading="Cracked windshield? Let's check your coverage and come to you."
+      eyebrow="Free mobile quote"
+    />
+  </main>
+  <Footer />
+</Layout>

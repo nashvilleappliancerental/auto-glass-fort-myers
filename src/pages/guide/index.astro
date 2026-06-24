@@ -1,0 +1,56 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import PageHero from "../../components/PageHero.astro";
+import Icon from "../../components/Icon.astro";
+import { SITE } from "../../data/site";
+
+const title = `Auto Glass Guides for Florida Drivers | ${SITE.name}`;
+const description =
+  "Straight answers on windshields, insurance, and auto glass for Southwest Florida drivers. Practical guides from your local mobile glass team.";
+
+// Newest first. Add new guides to the top of this list.
+const guides = [
+  {
+    title: "Florida's Free Windshield Replacement Law, Explained",
+    description:
+      "With comprehensive coverage, Florida waives your deductible on windshield damage. Here's how that works in 2026, what changed in 2023, and how to use it.",
+    href: "/guide/florida-free-windshield-replacement-law",
+    date: "June 24, 2026",
+  },
+];
+---
+
+<Layout title={title} description={description}>
+  <Header />
+  <main class="pt-20">
+    <PageHero
+      eyebrow="Guides"
+      title="Auto glass, insurance, and Florida, made simple."
+      subtitle="No jargon, no upsell. Just clear answers for Southwest Florida drivers from a local mobile glass team."
+      crumbs={[{ label: "Home", href: "/" }, { label: "Guides" }]}
+    />
+
+    <section class="py-16 sm:py-20">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6 space-y-5">
+        {guides.map((g) => (
+          <a
+            href={g.href}
+            class="group block bg-white border border-border/60 hover:border-brand-accent/40 hover:shadow-lg transition-all rounded-3xl p-7 sm:p-8"
+          >
+            <p class="text-sm text-muted-foreground mb-2">{g.date}</p>
+            <h2 class="text-2xl font-extrabold tracking-tight leading-snug group-hover:text-brand-accent transition-colors">
+              {g.title}
+            </h2>
+            <p class="text-muted-foreground leading-relaxed mt-3">{g.description}</p>
+            <span class="inline-flex items-center gap-1.5 mt-5 font-semibold text-brand-accent group-hover:gap-2.5 transition-all">
+              Read the guide <Icon name="arrow-right" class="w-4 h-4" />
+            </span>
+          </a>
+        ))}
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>
