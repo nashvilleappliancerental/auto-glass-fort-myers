@@ -1,0 +1,223 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import PageHero from "../../components/PageHero.astro";
+import Icon from "../../components/Icon.astro";
+import ContactSection from "../../components/ContactSection.astro";
+import { SITE } from "../../data/site";
+
+const title = "Why Windshields Crack More in Southwest Florida (Data Report)";
+const description =
+  "We pulled public weather, traffic, and storm data to explain why Southwest Florida is unusually hard on windshields: 120 hot days a year, two love-bug seasons, road debris, and more.";
+const pageUrl = `${SITE.url}/guide/why-windshields-crack-southwest-florida`;
+
+// NOAA 1991–2020 climate normals for Fort Myers (days at or above 90°F), via Current Results.
+const heatByMonth = [
+  { m: "Jan", d: 0 },
+  { m: "Feb", d: 0 },
+  { m: "Mar", d: 1 },
+  { m: "Apr", d: 5 },
+  { m: "May", d: 16 },
+  { m: "Jun", d: 22 },
+  { m: "Jul", d: 25 },
+  { m: "Aug", d: 25 },
+  { m: "Sep", d: 20 },
+  { m: "Oct", d: 7 },
+  { m: "Nov", d: 0 },
+  { m: "Dec", d: 0 },
+];
+const heatMax = 25;
+
+const stats = [
+  { big: "120", label: "days a year at or above 90°F in Fort Myers" },
+  { big: "2", label: "love-bug seasons every single year" },
+  { big: "12M", label: "cubic yards of debris from Hurricane Ian" },
+  { big: "I-75 + US-41", label: "two of Lee County's busiest debris corridors", small: true },
+];
+
+const faqs = [
+  {
+    q: "Does heat really crack windshields?",
+    a: "Heat rarely cracks healthy glass on its own, but it makes an existing chip spread fast. A windshield that's been baking in the sun expands, and a sudden temperature swing, like blasting the AC or getting caught in an afternoon downpour, stresses the glass and pushes a small chip into a long crack. With 120 days a year above 90°F in Fort Myers, that swing happens constantly here.",
+  },
+  {
+    q: "Why do I get so many rock chips in Southwest Florida?",
+    a: "Most chips come from road debris kicked up at highway speed. Heavy daily traffic on I-75 and US-41, plus ongoing construction and the long cleanup after Hurricane Ian, means more loose gravel and grit on the road than in a lot of places. The faster you're going when it hits, the more likely it leaves a star break or chip.",
+  },
+  {
+    q: "Should I fix a chip right away or wait?",
+    a: "Fix it right away, especially here. Our heat and temperature swings spread chips quicker than a cooler climate would. A chip caught early is usually a quick resin repair that keeps your factory glass. Wait, and it can grow into a full replacement. With comprehensive coverage, Florida often covers the repair with nothing out of pocket.",
+  },
+];
+
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  headline: "Why Windshields Crack More in Southwest Florida",
+  description,
+  datePublished: "2026-06-24",
+  dateModified: "2026-06-24",
+  author: { "@type": "Organization", name: SITE.name, url: SITE.url },
+  publisher: { "@type": "Organization", name: SITE.name, url: SITE.url },
+  mainEntityOfPage: pageUrl,
+};
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: SITE.url },
+    { "@type": "ListItem", position: 2, name: "Guides", item: `${SITE.url}/guide` },
+    { "@type": "ListItem", position: 3, name: "Why Windshields Crack in SW Florida", item: pageUrl },
+  ],
+};
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((f) => ({
+    "@type": "Question",
+    name: f.q,
+    acceptedAnswer: { "@type": "Answer", text: f.a },
+  })),
+};
+---
+
+<Layout title={title} description={description} schema={[articleSchema, breadcrumbSchema, faqSchema]}>
+  <Header />
+  <main class="pt-20">
+    <PageHero
+      eyebrow="Local report"
+      title="Why windshields crack more in Southwest Florida"
+      subtitle="We replace a lot of glass down here. So we pulled the public weather, traffic, and storm data to see whether it's just us, or whether Southwest Florida really is harder on windshields. It is. Here's what the numbers show."
+      crumbs={[{ label: "Home", href: "/" }, { label: "Guides", href: "/guide" }, { label: "Why Windshields Crack Here" }]}
+    />
+
+    <section class="py-16 sm:py-20">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6">
+
+        <!-- Stat band -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-14">
+          {stats.map((s) => (
+            <div class="bg-brand-charcoal text-brand-cream rounded-2xl p-5 text-center">
+              <p class={`font-display font-extrabold text-brand-accent leading-none ${s.small ? "text-xl mt-1.5" : "text-4xl"}`}>{s.big}</p>
+              <p class="text-xs text-brand-cream/70 leading-snug mt-2">{s.label}</p>
+            </div>
+          ))}
+        </div>
+
+        <div class="prose-body">
+          <p>
+            Auto glass shops everywhere replace windshields. But after enough years working driveways from
+            <a href="/auto-glass-cape-coral-fl">Cape Coral</a> to <a href="/auto-glass-estero-fl">Estero</a>, you start to wonder if
+            this stretch of Florida is rougher on glass than most. Turns out the public data backs it up. Four things stack the deck
+            against your windshield here: relentless heat, two love-bug seasons a year, busy debris-strewn highways, and the long tail
+            of Hurricane Ian.
+          </p>
+
+          <h2>1. The heat never lets up</h2>
+          <p>
+            Fort Myers averages <strong>120 days a year at or above 90°F</strong>, based on NOAA's 1991–2020 climate normals. That's
+            one day in three. Heat alone won't crack a healthy windshield, but it's brutal on a chip you already have. Glass that's been
+            baking expands, and then a sudden swing, blasting the AC into a hot cabin or getting hit by an afternoon storm, stresses it
+            and drives a small chip into a long crack. The hotter months are exactly when we see chips "run."
+          </p>
+        </div>
+
+        <!-- Heat chart -->
+        <figure class="my-8 bg-brand-cream-dark rounded-3xl p-6 sm:p-8">
+          <figcaption class="text-sm font-bold tracking-tight mb-1">Days at or above 90°F in Fort Myers, by month</figcaption>
+          <p class="text-xs text-muted-foreground mb-6">NOAA 1991–2020 climate normals</p>
+          <div class="flex items-end justify-between gap-1.5 h-40">
+            {heatByMonth.map((mo) => (
+              <div class="flex-1 flex flex-col items-center gap-2 h-full justify-end">
+                <span class="text-[10px] font-bold text-brand-charcoal/70">{mo.d}</span>
+                <div
+                  class="w-full rounded-t-md bg-brand-accent/80"
+                  style={`height:${Math.max((mo.d / heatMax) * 100, 2)}%`}
+                  title={`${mo.m}: ${mo.d} days`}
+                ></div>
+                <span class="text-[10px] text-muted-foreground">{mo.m}</span>
+              </div>
+            ))}
+          </div>
+        </figure>
+
+        <div class="prose-body">
+          <h2>2. Love bugs, twice a year</h2>
+          <p>
+            Southwest Florida gets two love-bug flights annually: a spring run in late April and May, and a summer run in late August
+            and September, each lasting about four to five weeks, according to the
+            <a href="https://fmel.ifas.ufl.edu/general-information/" target="_blank" rel="noopener">UF/IFAS Florida Medical Entomology Laboratory</a>.
+            They don't crack glass, but they coat and pit it, and the real damage is what happens next. When you scrub that dried,
+            slightly acidic residue off, especially with wipers and washer fluid, you drag fine grit across the glass and leave hazing
+            and tiny scratches right in your line of sight. Two seasons a year of that adds up.
+          </p>
+
+          <h2>3. Highway debris on I-75 and US-41</h2>
+          <p>
+            Most rock chips don't come from freak events. They come from a pebble flicked up at 70 mph. Lee County's two main arteries,
+            <strong>I-75</strong> and <strong>US-41 (Cleveland Avenue / Tamiami Trail)</strong>, carry heavy daily traffic, and Southwest
+            Florida has been under near-constant construction for years. More trucks, more loose gravel, more grit on the road. You can
+            browse the volumes yourself in the
+            <a href="https://gis-fdot.opendata.arcgis.com/datasets/annual-average-daily-traffic-tda" target="_blank" rel="noopener">FDOT traffic-count data</a>
+            and the <a href="https://www.leegov.com/dot/traffic/trafficcountreports" target="_blank" rel="noopener">Lee County count reports</a>.
+            The takeaway is simple: the more highway miles you drive here, the more chips you'll collect.
+          </p>
+
+          <h2>4. Hurricane Ian's long tail</h2>
+          <p>
+            When Ian came ashore in Lee County on September 28, 2022, as a Category 4, it generated an estimated
+            <strong>12 million cubic yards of debris</strong>, with about 6 million collected roadside in unincorporated areas alone,
+            per the <a href="https://ianprogress.leegov.com/" target="_blank" rel="noopener">Lee County recovery reports</a> and the
+            <a href="https://www.nhc.noaa.gov/data/tcr/AL092022_Ian.pdf" target="_blank" rel="noopener">National Hurricane Center</a>.
+            Years later, the rebuild is still rolling: dump trucks, construction sites, and gritty roads. All of it feeds the same rock-chip
+            problem, long after the storm itself is gone.
+          </p>
+
+          <h2>What this means for your windshield</h2>
+          <p>
+            Put it together and Southwest Florida is close to a worst-case mix: lots of road debris to start a chip, and relentless heat to
+            finish it off as a crack. The practical move is to treat a chip as urgent here in a way you might not up north. A
+            <a href="/windshield-repair">quick chip repair</a> is fast, keeps your factory glass, and often costs you nothing under
+            <a href="/guide/florida-free-windshield-replacement-law">Florida's windshield law</a>. Not sure if yours is fixable? Our
+            <a href="/guide/windshield-repair-or-replace">repair-or-replace checker</a> gives you an answer in about 30 seconds.
+          </p>
+        </div>
+
+        <!-- Methodology / sources -->
+        <div class="mt-10 bg-white border border-border/60 rounded-3xl p-7 shadow-sm">
+          <h3 class="font-bold tracking-tight mb-2">How we put this together</h3>
+          <p class="text-sm text-muted-foreground leading-relaxed mb-4">
+            This report pulls from public weather, traffic, and storm records, not internal numbers. We focused on what's measurable and
+            cited every source so you can check it yourself. Where the public data is qualitative, like road debris and storm frequency,
+            we've kept the claims qualitative rather than inventing figures.
+          </p>
+          <ul class="text-sm space-y-2">
+            <li class="flex gap-2.5"><Icon name="badge-check" class="w-4 h-4 text-brand-accent shrink-0 mt-0.5" /> <span>Heat: <a href="https://www.currentresults.com/Weather/Florida/Places/fort-myers-temperatures-by-month-average.php" target="_blank" rel="noopener" class="text-brand-accent font-semibold underline underline-offset-4">Fort Myers temperature normals</a> (NOAA 1991–2020)</span></li>
+            <li class="flex gap-2.5"><Icon name="badge-check" class="w-4 h-4 text-brand-accent shrink-0 mt-0.5" /> <span>Love bugs: <a href="https://fmel.ifas.ufl.edu/general-information/" target="_blank" rel="noopener" class="text-brand-accent font-semibold underline underline-offset-4">UF/IFAS Florida Medical Entomology Laboratory</a></span></li>
+            <li class="flex gap-2.5"><Icon name="badge-check" class="w-4 h-4 text-brand-accent shrink-0 mt-0.5" /> <span>Traffic: <a href="https://gis-fdot.opendata.arcgis.com/datasets/annual-average-daily-traffic-tda" target="_blank" rel="noopener" class="text-brand-accent font-semibold underline underline-offset-4">FDOT AADT</a> and <a href="https://www.leegov.com/dot/traffic/trafficcountreports" target="_blank" rel="noopener" class="text-brand-accent font-semibold underline underline-offset-4">Lee County counts</a></span></li>
+            <li class="flex gap-2.5"><Icon name="badge-check" class="w-4 h-4 text-brand-accent shrink-0 mt-0.5" /> <span>Hurricane Ian: <a href="https://www.nhc.noaa.gov/data/tcr/AL092022_Ian.pdf" target="_blank" rel="noopener" class="text-brand-accent font-semibold underline underline-offset-4">NHC report</a> and <a href="https://ianprogress.leegov.com/" target="_blank" rel="noopener" class="text-brand-accent font-semibold underline underline-offset-4">Lee County recovery</a></span></li>
+            <li class="flex gap-2.5"><Icon name="badge-check" class="w-4 h-4 text-brand-accent shrink-0 mt-0.5" /> <span>Storms &amp; hail: <a href="https://www.ncei.noaa.gov/stormevents/" target="_blank" rel="noopener" class="text-brand-accent font-semibold underline underline-offset-4">NOAA Storm Events Database</a></span></li>
+          </ul>
+        </div>
+
+        <!-- FAQ -->
+        <div class="prose-body mt-16">
+          <h2>Questions we hear a lot</h2>
+          {faqs.map((f) => (
+            <Fragment>
+              <h3>{f.q}</h3>
+              <p>{f.a}</p>
+            </Fragment>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <ContactSection
+      heading="Chip from one of our lovely roads? We'll come to you."
+      eyebrow="Free mobile quote"
+    />
+  </main>
+  <Footer />
+</Layout>
