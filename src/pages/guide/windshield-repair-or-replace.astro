@@ -1,0 +1,301 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import PageHero from "../../components/PageHero.astro";
+import Icon from "../../components/Icon.astro";
+import ContactSection from "../../components/ContactSection.astro";
+import { SITE } from "../../data/site";
+
+const title = "Windshield Repair or Replace? Free 30-Second Checker";
+const description =
+  "Answer four quick questions about your chip or crack to find out whether your windshield can be repaired or needs replacing, plus what affects the cost in Florida.";
+const pageUrl = `${SITE.url}/guide/windshield-repair-or-replace`;
+
+const faqs = [
+  {
+    q: "Can a cracked windshield be repaired, or does it have to be replaced?",
+    a: "It depends on the size, the spot, and how many there are. As a rule of thumb, a chip smaller than a quarter or a crack shorter than about six inches can often be repaired, as long as it is not in your direct line of sight and not out at the very edge of the glass. Bigger damage, edge cracks, or several breaks usually mean a replacement.",
+  },
+  {
+    q: "How big a chip can be repaired?",
+    a: "Most shops can repair a chip up to about the size of a quarter and a crack up to roughly six inches, depending on the type and depth. Past that, resin can't restore the strength or clarity well enough, so replacement is the safer call. When in doubt, send us a photo and we'll tell you straight.",
+  },
+  {
+    q: "Does a repair or a claim hurt my insurance in Florida?",
+    a: "A windshield chip repair is not an at-fault accident, and with comprehensive coverage Florida's deductible waiver often makes the repair free to you. Rate impact varies by insurer, so ask yours before filing. Either way, a quick repair is cheaper and easier than waiting for a crack to spread into a full replacement.",
+  },
+];
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: SITE.url },
+    { "@type": "ListItem", position: 2, name: "Guides", item: `${SITE.url}/guide` },
+    { "@type": "ListItem", position: 3, name: "Repair or Replace Checker", item: pageUrl },
+  ],
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((f) => ({
+    "@type": "Question",
+    name: f.q,
+    acceptedAnswer: { "@type": "Answer", text: f.a },
+  })),
+};
+
+// Reusable option-card markup is inlined below via this small helper shape.
+const sizeOpts = [
+  { value: "small", label: "Smaller than a quarter", sub: "Chip or short crack" },
+  { value: "medium", label: "Quarter to a dollar bill", sub: "Up to ~6 inches" },
+  { value: "large", label: "Bigger than a dollar bill", sub: "Long crack or spread" },
+];
+const locationOpts = [
+  { value: "middle", label: "Middle of the glass", sub: "Away from edges & your view" },
+  { value: "driver", label: "In your line of sight", sub: "Right where you look" },
+  { value: "edge", label: "Out near the edge", sub: "Within ~2 inches of the frame" },
+];
+const countOpts = [
+  { value: "one", label: "Just one", sub: "" },
+  { value: "few", label: "Two or three", sub: "" },
+  { value: "many", label: "More than three", sub: "" },
+];
+const adasOpts = [
+  { value: "yes", label: "Yes", sub: "Lane-keeping or auto-braking" },
+  { value: "no", label: "No / not sure", sub: "" },
+];
+---
+
+<Layout title={title} description={description} schema={[breadcrumbSchema, faqSchema]}>
+  <Header />
+  <main class="pt-20">
+    <PageHero
+      eyebrow="Free tool"
+      title="Windshield Repair or Replace? Find out in 30 seconds."
+      subtitle="Answer four quick questions about your chip or crack. We'll tell you whether it can likely be repaired or needs replacing, and what affects the cost here in Florida."
+      crumbs={[{ label: "Home", href: "/" }, { label: "Guides", href: "/guide" }, { label: "Repair or Replace" }]}
+    />
+
+    <section class="py-16 sm:py-20">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6">
+
+        <form id="rr-form" class="space-y-8">
+          <!-- Q1: Size -->
+          <fieldset>
+            <legend class="font-bold text-lg tracking-tight mb-1">How big is the damage?</legend>
+            <p class="text-sm text-muted-foreground mb-4">Compare it to a coin or a dollar bill.</p>
+            <div class="grid sm:grid-cols-3 gap-3">
+              {sizeOpts.map((o) => (
+                <label class="cursor-pointer">
+                  <input type="radio" name="size" value={o.value} class="peer sr-only" />
+                  <div class="h-full rounded-2xl border border-border/60 p-4 transition-colors hover:border-brand-accent/40 peer-checked:border-brand-accent peer-checked:bg-brand-accent/10">
+                    <span class="block font-semibold text-sm peer-checked:text-brand-accent">{o.label}</span>
+                    {o.sub && <span class="block text-xs text-muted-foreground mt-1">{o.sub}</span>}
+                  </div>
+                </label>
+              ))}
+            </div>
+          </fieldset>
+
+          <!-- Q2: Location -->
+          <fieldset>
+            <legend class="font-bold text-lg tracking-tight mb-1">Where is it on the windshield?</legend>
+            <p class="text-sm text-muted-foreground mb-4">Edges and your direct line of sight matter most.</p>
+            <div class="grid sm:grid-cols-3 gap-3">
+              {locationOpts.map((o) => (
+                <label class="cursor-pointer">
+                  <input type="radio" name="location" value={o.value} class="peer sr-only" />
+                  <div class="h-full rounded-2xl border border-border/60 p-4 transition-colors hover:border-brand-accent/40 peer-checked:border-brand-accent peer-checked:bg-brand-accent/10">
+                    <span class="block font-semibold text-sm peer-checked:text-brand-accent">{o.label}</span>
+                    {o.sub && <span class="block text-xs text-muted-foreground mt-1">{o.sub}</span>}
+                  </div>
+                </label>
+              ))}
+            </div>
+          </fieldset>
+
+          <!-- Q3: Count -->
+          <fieldset>
+            <legend class="font-bold text-lg tracking-tight mb-1">How many chips or cracks?</legend>
+            <p class="text-sm text-muted-foreground mb-4">Count every separate spot.</p>
+            <div class="grid sm:grid-cols-3 gap-3">
+              {countOpts.map((o) => (
+                <label class="cursor-pointer">
+                  <input type="radio" name="count" value={o.value} class="peer sr-only" />
+                  <div class="h-full rounded-2xl border border-border/60 p-4 transition-colors hover:border-brand-accent/40 peer-checked:border-brand-accent peer-checked:bg-brand-accent/10">
+                    <span class="block font-semibold text-sm peer-checked:text-brand-accent">{o.label}</span>
+                    {o.sub && <span class="block text-xs text-muted-foreground mt-1">{o.sub}</span>}
+                  </div>
+                </label>
+              ))}
+            </div>
+          </fieldset>
+
+          <!-- Q4: ADAS -->
+          <fieldset>
+            <legend class="font-bold text-lg tracking-tight mb-1">Does your car have lane-assist or auto-braking cameras?</legend>
+            <p class="text-sm text-muted-foreground mb-4">Common on most vehicles from the last several years. It changes what a replacement involves, not whether you can repair.</p>
+            <div class="grid sm:grid-cols-2 gap-3">
+              {adasOpts.map((o) => (
+                <label class="cursor-pointer">
+                  <input type="radio" name="adas" value={o.value} class="peer sr-only" />
+                  <div class="h-full rounded-2xl border border-border/60 p-4 transition-colors hover:border-brand-accent/40 peer-checked:border-brand-accent peer-checked:bg-brand-accent/10">
+                    <span class="block font-semibold text-sm peer-checked:text-brand-accent">{o.label}</span>
+                    {o.sub && <span class="block text-xs text-muted-foreground mt-1">{o.sub}</span>}
+                  </div>
+                </label>
+              ))}
+            </div>
+          </fieldset>
+
+          <p id="rr-error" class="hidden text-sm font-semibold text-brand-accent">Please answer all four questions to see your result.</p>
+
+          <button
+            type="button"
+            id="rr-go"
+            class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-brand-accent hover:bg-brand-accent-dark text-brand-accent-contrast font-bold px-7 py-3.5 rounded-[var(--radius-btn)] transition-colors"
+          >
+            See my result <Icon name="arrow-right" class="w-4 h-4" />
+          </button>
+        </form>
+
+        <!-- Results -->
+        <div id="rr-result" class="hidden mt-10 scroll-mt-28" aria-live="polite">
+          <!-- Repair -->
+          <div data-verdict="repair" class="rr-card hidden rounded-3xl border-2 border-brand-accent/40 bg-brand-accent/5 p-7 sm:p-8">
+            <p class="text-brand-accent font-bold uppercase tracking-[0.2em] text-xs mb-2">Likely repairable</p>
+            <h2 class="text-2xl font-extrabold tracking-tight mb-3">Good news — this looks repairable.</h2>
+            <p class="text-muted-foreground leading-relaxed mb-3">
+              From what you described, this is the kind of damage we can usually fix on the spot. We clean the break, inject clear resin,
+              and cure it so it stops spreading and mostly disappears. It takes about 30 minutes and it keeps your original factory glass.
+            </p>
+            <p class="text-muted-foreground leading-relaxed">
+              Repairs are also the insurance-friendly option. Under <a href="/guide/florida-free-windshield-replacement-law" class="text-brand-accent font-semibold underline underline-offset-4">Florida's windshield law</a>, comprehensive policies often cover chip repair with nothing out of pocket.
+            </p>
+          </div>
+
+          <!-- Borderline -->
+          <div data-verdict="borderline" class="rr-card hidden rounded-3xl border-2 border-border/80 bg-white p-7 sm:p-8">
+            <p class="text-brand-accent font-bold uppercase tracking-[0.2em] text-xs mb-2">It depends</p>
+            <h2 class="text-2xl font-extrabold tracking-tight mb-3">This one's a judgment call.</h2>
+            <p class="text-muted-foreground leading-relaxed mb-3">
+              Because the damage sits right in your line of sight, a repair can leave a little distortion exactly where you look most.
+              Sometimes we can still fix it cleanly. Sometimes a replacement is the safer call for clear vision. The honest answer comes
+              down to seeing it in person.
+            </p>
+            <p class="text-muted-foreground leading-relaxed">
+              Send us a photo and we'll tell you straight: repair if it'll hold and look right, replace if it won't.
+            </p>
+          </div>
+
+          <!-- Replace -->
+          <div data-verdict="replace" class="rr-card hidden rounded-3xl border-2 border-brand-charcoal/15 bg-white p-7 sm:p-8">
+            <p class="text-brand-accent font-bold uppercase tracking-[0.2em] text-xs mb-2">Likely a replacement</p>
+            <h2 class="text-2xl font-extrabold tracking-tight mb-3">This is most likely a replacement.</h2>
+            <p class="text-muted-foreground leading-relaxed mb-3">
+              Damage that's large, out near the edge, or spread across several spots usually can't be repaired reliably. Edge cracks in
+              particular weaken the glass and tend to keep spreading, so a fresh windshield is the safe move.
+            </p>
+            <p id="rr-adas-note" class="hidden text-muted-foreground leading-relaxed mb-3">
+              Since your car has cameras for lane-keeping or auto-braking, the new windshield will need <a href="/adas-calibration" class="text-brand-accent font-semibold underline underline-offset-4">ADAS calibration</a> afterward. We handle that as part of the job so your safety systems read the road correctly.
+            </p>
+            <p class="text-muted-foreground leading-relaxed">
+              Here's the upside: with comprehensive coverage, <a href="/guide/florida-free-windshield-replacement-law" class="text-brand-accent font-semibold underline underline-offset-4">Florida waives your deductible</a> on a windshield replacement, so the glass itself is typically $0.
+            </p>
+          </div>
+
+          <!-- CTA + cost factors (shown with any result) -->
+          <div class="mt-6 flex flex-col sm:flex-row gap-3">
+            <a href="/contact" class="inline-flex items-center justify-center gap-2 bg-brand-accent hover:bg-brand-accent-dark text-brand-accent-contrast font-bold px-6 py-3.5 rounded-[var(--radius-btn)] transition-colors">
+              Send a photo for a free check <Icon name="arrow-right" class="w-4 h-4" />
+            </a>
+            <a href={SITE.phoneHref} class="inline-flex items-center justify-center gap-2 bg-brand-charcoal text-brand-cream font-bold px-6 py-3.5 rounded-[var(--radius-btn)] hover:opacity-90 transition-opacity">
+              <Icon name="phone" class="w-4 h-4" /> {SITE.phone}
+            </a>
+          </div>
+
+          <div class="mt-8 bg-brand-cream-dark rounded-3xl p-7">
+            <h3 class="font-bold tracking-tight mb-4">What changes the price of a windshield</h3>
+            <ul class="space-y-2.5 text-sm text-muted-foreground leading-relaxed">
+              <li class="flex gap-2.5"><Icon name="badge-check" class="w-4 h-4 text-brand-accent shrink-0 mt-0.5" /> Your vehicle's make, model, and how easy the glass is to source</li>
+              <li class="flex gap-2.5"><Icon name="badge-check" class="w-4 h-4 text-brand-accent shrink-0 mt-0.5" /> OEM (factory) glass versus quality aftermarket</li>
+              <li class="flex gap-2.5"><Icon name="badge-check" class="w-4 h-4 text-brand-accent shrink-0 mt-0.5" /> Built-in tech: rain sensors, heating elements, and cameras</li>
+              <li class="flex gap-2.5"><Icon name="badge-check" class="w-4 h-4 text-brand-accent shrink-0 mt-0.5" /> Whether it needs <a href="/adas-calibration" class="text-brand-accent font-semibold underline underline-offset-4">ADAS calibration</a> afterward</li>
+              <li class="flex gap-2.5"><Icon name="badge-check" class="w-4 h-4 text-brand-accent shrink-0 mt-0.5" /> Your insurance and deductible — see <a href="/guide/florida-free-windshield-replacement-law" class="text-brand-accent font-semibold underline underline-offset-4">Florida's windshield law</a></li>
+            </ul>
+            <p class="text-xs text-muted-foreground mt-5">
+              This tool gives general guidance, not a diagnosis. The only way to know for sure is to have us look — it's free, and we come to you.
+            </p>
+          </div>
+        </div>
+
+        <!-- FAQ -->
+        <div class="prose-body mt-16">
+          <h2>Repair vs. replace, answered</h2>
+          {faqs.map((f) => (
+            <Fragment>
+              <h3>{f.q}</h3>
+              <p>{f.a}</p>
+            </Fragment>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <ContactSection
+      heading="Still not sure? Send us a photo and we'll tell you straight."
+      eyebrow="Free mobile quote"
+    />
+  </main>
+  <Footer />
+</Layout>
+
+<script>
+  const form = document.getElementById("rr-form") as HTMLFormElement | null;
+  const goBtn = document.getElementById("rr-go");
+  const resultWrap = document.getElementById("rr-result");
+  const errorMsg = document.getElementById("rr-error");
+  const adasNote = document.getElementById("rr-adas-note");
+
+  if (form && goBtn && resultWrap && errorMsg) {
+    goBtn.addEventListener("click", () => {
+      const data = new FormData(form);
+      const size = data.get("size");
+      const location = data.get("location");
+      const count = data.get("count");
+      const adas = data.get("adas");
+
+      if (!size || !location || !count || !adas) {
+        errorMsg.classList.remove("hidden");
+        return;
+      }
+      errorMsg.classList.add("hidden");
+
+      // Decision logic: clear "replace" signals first, then the line-of-sight caveat.
+      let verdict: "repair" | "borderline" | "replace";
+      if (size === "large" || count === "many" || location === "edge") {
+        verdict = "replace";
+      } else if (location === "driver") {
+        verdict = "borderline";
+      } else {
+        verdict = "repair";
+      }
+
+      // Show only the matching card.
+      resultWrap.querySelectorAll(".rr-card").forEach((card) => {
+        card.classList.toggle("hidden", card.getAttribute("data-verdict") !== verdict);
+      });
+
+      // ADAS calibration note only matters on a replacement.
+      if (adasNote) {
+        adasNote.classList.toggle("hidden", !(verdict === "replace" && adas === "yes"));
+      }
+
+      resultWrap.classList.remove("hidden");
+      resultWrap.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  }
+</script>
