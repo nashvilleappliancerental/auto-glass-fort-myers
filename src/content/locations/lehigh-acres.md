@@ -1,5 +1,6 @@
 ---
 city: Lehigh Acres
+image: /images/loc-lehigh-acres.webp
 state: FL
 order: 2
 summary: Mobile auto glass throughout Lehigh Acres. We drive out to you, so distance from the nearest shop never means waiting on a cracked windshield.

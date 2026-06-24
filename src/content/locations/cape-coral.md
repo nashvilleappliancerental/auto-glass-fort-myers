@@ -1,5 +1,6 @@
 ---
 city: Cape Coral
+image: /images/loc-cape-coral.webp
 state: FL
 order: 1
 summary: Mobile auto glass across Cape Coral. Windshield repair, replacement, and calibration brought to your driveway, bridge commute or not.

@@ -1,5 +1,6 @@
 ---
 city: Estero
+image: /images/loc-estero.webp
 state: FL
 order: 3
 summary: Mobile auto glass in Estero. Windshield work and ADAS calibration for the newer vehicles common along the I-75 and US-41 corridor.

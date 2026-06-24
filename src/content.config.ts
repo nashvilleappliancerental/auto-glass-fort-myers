@@ -60,6 +60,8 @@ const locations = defineCollection({
     order: z.number(),
     // Short blurb for the service-area hub cards.
     summary: z.string(),
+    // Optional hero background photo for the city page (path under /public).
+    image: z.string().optional(),
     // SEO overrides.
     metaTitle: z.string().optional(),
     metaDescription: z.string().optional(),

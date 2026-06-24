@@ -1,10 +1,12 @@
 ---
-// AREA variant: decorative map (desktop) + clickable city list.
+// AREA variant: Google Maps embed (desktop) + clickable city list.
 import Icon from "../../Icon.astro";
 import { cityState } from "../../../data/site";
 import type { AreaLocation, MapPin } from "../types";
+// `pins` stays in the contract (other variants/callers pass it) but this
+// variant now shows a real map embed instead of decorative pins.
 interface Props { locations: AreaLocation[]; pins: MapPin[] }
-const { locations, pins } = Astro.props;
+const { locations } = Astro.props;
 ---
 <section id="area" class="py-24 sm:py-28">
   <div class="max-w-7xl mx-auto px-4 sm:px-6">
@@ -14,18 +16,16 @@ const { locations, pins } = Astro.props;
       <p class="text-lg text-muted-foreground leading-relaxed">Based in {cityState}, we serve drivers and businesses across the area.</p>
     </div>
     <div class="grid lg:grid-cols-2 gap-8 lg:gap-12 items-stretch">
-      <div class="relative hidden lg:block rounded-3xl overflow-hidden bg-brand-charcoal border border-white/10 lg:min-h-full">
-        <div class="absolute inset-0 opacity-[0.12]" style="background-image:radial-gradient(circle,#fff 1px,transparent 1px);background-size:22px 22px;"></div>
-        <div class="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 rounded-full bg-brand-accent/20 blur-[80px]"></div>
-        {pins.map((p) => (
-          <div class="absolute -translate-x-1/2 -translate-y-1/2 flex flex-col items-center gap-1.5" style={`top:${p.top};left:${p.left}`}>
-            <span class="relative flex items-center justify-center">
-              {p.hq && <span class="absolute inline-flex h-4 w-4 rounded-full bg-brand-accent opacity-60 animate-ping"></span>}
-              <span class={p.hq ? "relative inline-flex w-4 h-4 rounded-full bg-brand-accent ring-4 ring-brand-accent/25" : "relative inline-flex w-2.5 h-2.5 rounded-full bg-brand-cream/80"}></span>
-            </span>
-            <span class={p.hq ? "text-[11px] font-bold text-white whitespace-nowrap" : "text-[11px] font-semibold text-brand-cream/70 whitespace-nowrap"}>{p.city}{p.hq ? " · HQ" : ""}</span>
-          </div>
-        ))}
+      <div class="relative hidden lg:block rounded-3xl overflow-hidden bg-brand-charcoal border border-white/10 lg:min-h-full min-h-[420px]">
+        <iframe
+          title={`Map of ${cityState} service area — Fort Myers Beach, FL`}
+          src="https://www.google.com/maps?q=Fort%20Myers%20Beach,%20FL&output=embed"
+          class="absolute inset-0 w-full h-full"
+          style="border:0;"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          allowfullscreen
+        ></iframe>
       </div>
       <div class="flex flex-col">
         <ul class="flex-1 divide-y divide-border/60">

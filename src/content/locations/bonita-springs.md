@@ -1,5 +1,6 @@
 ---
 city: Bonita Springs
+image: /images/loc-bonita-springs.webp
 state: FL
 order: 4
 summary: Mobile auto glass in Bonita Springs. Windshield service that comes to your gated community or beach-side neighborhood, snowbird season or not.

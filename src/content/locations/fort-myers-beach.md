@@ -1,5 +1,6 @@
 ---
 city: Fort Myers Beach
+image: /images/loc-fort-myers-beach.webp
 state: FL
 order: 6
 summary: Mobile auto glass on Fort Myers Beach. Windshield service that comes onto Estero Island, around the tight parking and post-storm rebuild.

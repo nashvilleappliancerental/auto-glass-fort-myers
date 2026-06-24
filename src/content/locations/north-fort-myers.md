@@ -1,5 +1,6 @@
 ---
 city: North Fort Myers
+image: /images/loc-north-fort-myers.webp
 state: FL
 order: 5
 summary: Mobile auto glass in North Fort Myers. Windshield service brought to your side of the river, so a bridge commute never means a cracked-glass detour.

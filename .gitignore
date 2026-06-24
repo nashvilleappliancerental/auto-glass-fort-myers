@@ -24,5 +24,8 @@ pnpm-debug.log*
 .idea/
 
 # image staging + archived originals (not used by the build; optimized copies live in public/images)
-src/assets/incoming/
-src/assets/originals/
+# keep the folders (README/.gitkeep) but ignore the dropped photos themselves
+src/assets/incoming/*
+!src/assets/incoming/README.md
+src/assets/originals/*
+!src/assets/originals/.gitkeep
