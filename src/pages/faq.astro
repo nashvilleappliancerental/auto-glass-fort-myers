@@ -22,7 +22,7 @@ const locations = (await getCollection("locations"))
   .map((l) => ({ city: l.data.city, state: l.data.state, href: locationUrl(l) }));
 
 const title = `FAQ | ${tradeCap} Questions in ${cityState} | ${SITE.shortName}`;
-const description = `Common questions about ${SITE.trade} in ${cityState} and the surrounding area — quotes, scheduling, payment, insurance, and what to expect. Get a free quote.`;
+const description = `Common questions about ${SITE.trade} in ${cityState} and the surrounding area: quotes, scheduling, payment, insurance, and what to expect. Get a free quote.`;
 
 const faqSchema = {
   "@context": "https://schema.org",
@@ -41,7 +41,7 @@ const faqSchema = {
     <PageHero
       eyebrow="FAQ"
       title={`${tradeCap} questions, answered.`}
-      subtitle={`The questions we get asked most about ${SITE.trade} in ${cityState} — how to book, what it costs, insurance, and what to expect. Don't see yours? Just reach out.`}
+      subtitle={`The questions we get asked most about ${SITE.trade} in ${cityState}: how to book, what it costs, insurance, and what to expect. Don't see yours? Just reach out.`}
       crumbs={[{ label: "Home", href: "/" }, { label: "FAQ" }]}
     />
 

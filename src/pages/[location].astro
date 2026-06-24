@@ -38,7 +38,7 @@ const description = d.metaDescription ?? d.summary;
 const localSchema = {
   "@context": "https://schema.org",
   "@type": SITE.schemaType,
-  name: `${SITE.name} — ${cityState}`,
+  name: `${SITE.name}, ${cityState}`,
   telephone: SITE.phoneHref.replace("tel:", ""),
   areaServed: cityState,
   description: d.summary,

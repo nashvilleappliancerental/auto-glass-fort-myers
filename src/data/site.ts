@@ -13,7 +13,7 @@ export const SITE = {
 
   url: "https://autoglassfortmyers.com", // production domain — canonical URLs + sitemap
   domain: "autoglassfortmyers.com",
-  tagline: "Mobile auto glass & windshield service — we come to you.",
+  tagline: "Mobile auto glass & windshield service. We come to you.",
 
   phone: "(555) 555-5555", // TODO: real booking/dispatch number
   phoneHref: "tel:+15555555555", // TODO: match real number (digits only)

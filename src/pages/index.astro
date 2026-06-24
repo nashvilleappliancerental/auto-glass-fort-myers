@@ -40,7 +40,7 @@ const locations = (await getCollection("locations"))
   .map((l) => ({ city: l.data.city, state: l.data.state, summary: l.data.summary, href: locationUrl(l) }));
 
 const title = `${tradeCap} in ${cityState} | ${SITE.name}`;
-const description = `${SITE.name} — ${SITE.tradeAdjective} ${SITE.trade} in ${cityState} and the surrounding area. Free, no-pressure estimates.`;
+const description = `${SITE.name}, ${SITE.tradeAdjective} ${SITE.trade} in ${cityState} and the surrounding area. Free, no-pressure estimates.`;
 
 const faqSchema = {
   "@context": "https://schema.org",
