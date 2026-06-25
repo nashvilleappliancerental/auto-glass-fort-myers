@@ -2,6 +2,11 @@
 import '../styles/global.css';
 import { SITE, tradeCap, cityState } from '../data/site';
 import { DESIGN } from '../data/design';
+import { getCollection } from 'astro:content';
+
+// Cities we serve, for the LocalBusiness areaServed list (base city + every location page).
+const areaCities = (await getCollection('locations')).map((l) => `${l.data.city}, ${l.data.state}`);
+const areaServed = [...new Set([cityState, ...areaCities])].map((name) => ({ '@type': 'City', name }));
 
 interface Props {
   title?: string;
@@ -31,15 +36,17 @@ const localBusiness = {
   url: SITE.url,
   telephone: SITE.phoneHref.replace("tel:", ""),
   email: SITE.email,
+  // Mobile / service-area business: no storefront, so only emit address fields
+  // that actually have a value (street + zip are intentionally empty).
   address: {
     "@type": "PostalAddress",
-    streetAddress: SITE.address.street,
+    ...(SITE.address.street ? { streetAddress: SITE.address.street } : {}),
     addressLocality: SITE.address.city,
     addressRegion: SITE.address.state,
-    postalCode: SITE.address.zip,
+    ...(SITE.address.zip ? { postalCode: SITE.address.zip } : {}),
     addressCountry: "US",
   },
-  areaServed: `${cityState} and the surrounding area`,
+  areaServed,
   // Only emit a rating when there are REAL reviews — never a 0-count rating.
   ...(SITE.rating.count > 0
     ? {

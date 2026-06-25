@@ -68,6 +68,7 @@ if (d.faqs.length > 0) {
       title={`${tradeCap} in ${cityState}`}
       subtitle={d.summary}
       image={d.image}
+      imageAlt={d.image ? `Aerial view of ${cityState}` : undefined}
       crumbs={[{ label: "Home", href: "/" }, { label: "Service Area", href: "/service-area" }, { label: d.city }]}
     />
 

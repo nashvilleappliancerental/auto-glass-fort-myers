@@ -3,6 +3,7 @@ import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import ContactSection from "../components/ContactSection.astro";
+import Icon from "../components/Icon.astro";
 import { SITE, tradeCap, cityState, locationUrl } from "../data/site";
 import { HERO, TRUST, REVIEWS, FAQS, MAP_PINS } from "../data/homepage";
 import { DESIGN } from "../data/design";
@@ -39,6 +40,25 @@ const locations = (await getCollection("locations"))
   .sort((a, b) => a.data.order - b.data.order)
   .map((l) => ({ city: l.data.city, state: l.data.state, summary: l.data.summary, href: locationUrl(l) }));
 
+// Featured guides for the homepage Resources section (newest first).
+const guides = [
+  {
+    title: "Why Windshields Crack More in Southwest Florida",
+    description: "A look at the local weather, traffic, and storm data that makes this region so hard on glass.",
+    href: "/guide/why-windshields-crack-southwest-florida",
+  },
+  {
+    title: "Windshield Repair or Replace?",
+    description: "Answer four quick questions and find out whether your chip can be fixed or needs replacing.",
+    href: "/guide/windshield-repair-or-replace",
+  },
+  {
+    title: "Florida's Free Windshield Replacement Law",
+    description: "How the deductible waiver works in 2026, who qualifies, and what changed in 2023.",
+    href: "/guide/florida-free-windshield-replacement-law",
+  },
+];
+
 const title = `${tradeCap} in ${cityState} | ${SITE.name}`;
 const description = `${SITE.name}, ${SITE.tradeAdjective} ${SITE.trade} in ${cityState} and the surrounding area. Free, no-pressure estimates.`;
 
@@ -61,6 +81,34 @@ const faqSchema = {
       : key === "reviews" ? (REVIEWS.length > 0 && <Reviews reviews={REVIEWS} />)
       : null
     ))}
+
+    <!-- Resources / guides -->
+    <section class="py-20 sm:py-24 bg-brand-cream-dark">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6">
+        <div class="flex flex-wrap items-end justify-between gap-4 mb-10">
+          <div class="max-w-2xl">
+            <p class="text-brand-accent font-bold uppercase tracking-[0.2em] text-xs mb-3">Helpful guides</p>
+            <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight leading-[1.08]">Know before you call.</h2>
+            <p class="text-lg text-muted-foreground leading-relaxed mt-4">Straight answers on windshields, insurance, and what makes Southwest Florida so hard on glass.</p>
+          </div>
+          <a href="/guide" class="inline-flex items-center gap-1.5 font-semibold text-brand-accent hover:gap-2.5 transition-all">
+            See all guides <Icon name="arrow-right" class="w-4 h-4" />
+          </a>
+        </div>
+        <div class="grid md:grid-cols-3 gap-4">
+          {guides.map((g) => (
+            <a href={g.href} class="group bg-white border border-border/60 hover:border-brand-accent/40 hover:-translate-y-1 hover:shadow-lg transition-all rounded-3xl p-6 flex flex-col">
+              <h3 class="font-bold text-lg tracking-tight leading-snug group-hover:text-brand-accent transition-colors">{g.title}</h3>
+              <p class="text-sm text-muted-foreground leading-relaxed mt-2 flex-1">{g.description}</p>
+              <span class="inline-flex items-center gap-1.5 mt-4 text-sm font-semibold text-brand-accent">
+                Read more <Icon name="arrow-right" class="w-4 h-4 transition-transform group-hover:translate-x-1" />
+              </span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
     <ContactSection />
   </main>
   <Footer />
