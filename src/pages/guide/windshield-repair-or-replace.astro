@@ -11,6 +11,7 @@ const title = "Windshield Repair or Replace? Free 30-Second Checker";
 const description =
   "Answer four quick questions about your chip or crack to find out whether your windshield can be repaired or needs replacing, plus what affects the cost in Florida.";
 const pageUrl = `${SITE.url}/guide/windshield-repair-or-replace`;
+const heroImage = "/images/guide-windshield-repair-or-replace.webp";
 
 const faqs = [
   {
@@ -69,7 +70,7 @@ const adasOpts = [
 ];
 ---
 
-<Layout title={title} description={description} schema={[breadcrumbSchema, faqSchema]}>
+<Layout title={title} description={description} image={heroImage} schema={[breadcrumbSchema, faqSchema]}>
   <Header />
   <main class="pt-20">
     <PageHero
@@ -77,6 +78,8 @@ const adasOpts = [
       title="Windshield Repair or Replace? Find out in 30 seconds."
       subtitle="Answer four quick questions about your chip or crack. We'll tell you whether it can likely be repaired or needs replacing, and what affects the cost here in Florida."
       crumbs={[{ label: "Home", href: "/" }, { label: "Guides", href: "/guide" }, { label: "Repair or Replace" }]}
+      image={heroImage}
+      imageAlt="Cracked windshield being inspected for repair or replacement"
     />
 
     <section class="py-16 sm:py-20">

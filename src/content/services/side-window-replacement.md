@@ -2,7 +2,7 @@
 title: Side & Door Glass
 order: 5
 icon: car
-image: /images/service.jpg
+image: /images/service-side-window-replacement.webp
 summary: Door, quarter, and vent glass replacement, including break-ins, with a full cleanup of shattered glass from the door and interior.
 tagline: Door glass smashed? We replace it and clean out every shard.
 metaTitle: Side & Door Glass Replacement in Fort Myers, FL

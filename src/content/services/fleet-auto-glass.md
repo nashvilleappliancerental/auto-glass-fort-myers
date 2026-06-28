@@ -2,7 +2,7 @@
 title: Fleet & Commercial
 order: 7
 icon: building
-image: /images/service.jpg
+image: /images/service-fleet-auto-glass.webp
 summary: Auto glass for work vehicles. Vans, trucks, and company fleets, serviced on-site at your yard or lot to keep downtime low.
 tagline: Keep your work vehicles on the road, not in a shop.
 metaTitle: Fleet & Commercial Auto Glass in Fort Myers, FL

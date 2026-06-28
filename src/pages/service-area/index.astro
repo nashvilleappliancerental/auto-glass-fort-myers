@@ -28,7 +28,7 @@ const title = `${tradeCap} Service Area in ${cityState} | ${SITE.shortName}`;
 const description = `${SITE.name} provides ${SITE.trade} services across ${cityState} and the surrounding area. Find your city.`;
 ---
 
-<Layout title={title} description={description}>
+<Layout title={title} description={description} image="/images/service-area-fort-myers.webp">
   <Header />
   <main class="pt-20">
     <PageHero
@@ -36,6 +36,8 @@ const description = `${SITE.name} provides ${SITE.trade} services across ${cityS
       title={`${tradeCap} across ${cityState} & the surrounding area.`}
       subtitle={`Based in ${cityState}, we serve drivers and businesses throughout the area. Find ${SITE.trade} services in your city below.`}
       crumbs={[{ label: "Home", href: "/" }, { label: "Service Area" }]}
+      image="/images/service-area-fort-myers.webp"
+      imageAlt={`Aerial view of ${cityState}`}
     />
 
     <section class="py-20 sm:py-24">

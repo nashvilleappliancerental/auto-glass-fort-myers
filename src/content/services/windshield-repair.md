@@ -2,7 +2,7 @@
 title: Windshield Repair
 order: 2
 icon: glass-crack
-image: /images/service.jpg
+image: /images/service-windshield-repair.webp
 summary: Fast rock-chip and crack repair that stops damage from spreading, often in under 30 minutes, right where you are.
 tagline: Stop a rock chip before it becomes a whole new windshield.
 metaTitle: Windshield Repair in Fort Myers, FL | Rock Chip Repair

@@ -11,6 +11,7 @@ const title = "Why Windshields Crack More in Southwest Florida (Data Report)";
 const description =
   "We pulled public weather, traffic, and storm data to explain why Southwest Florida is unusually hard on windshields: 120 hot days a year, two love-bug seasons, road debris, and more.";
 const pageUrl = `${SITE.url}/guide/why-windshields-crack-southwest-florida`;
+const heroImage = "/images/guide-why-windshields-crack-swfl.webp";
 
 // NOAA 1991–2020 climate normals for Fort Myers (days at or above 90°F), via Current Results.
 const heatByMonth = [
@@ -82,7 +83,7 @@ const faqSchema = {
 };
 ---
 
-<Layout title={title} description={description} schema={[articleSchema, breadcrumbSchema, faqSchema]}>
+<Layout title={title} description={description} image={heroImage} schema={[articleSchema, breadcrumbSchema, faqSchema]}>
   <Header />
   <main class="pt-20">
     <PageHero
@@ -90,6 +91,8 @@ const faqSchema = {
       title="Why windshields crack more in Southwest Florida"
       subtitle="We replace a lot of glass down here. So we pulled the public weather, traffic, and storm data to see whether it's just us, or whether Southwest Florida really is harder on windshields. It is. Here's what the numbers show."
       crumbs={[{ label: "Home", href: "/" }, { label: "Guides", href: "/guide" }, { label: "Why Windshields Crack Here" }]}
+      image={heroImage}
+      imageAlt="Aerial view of Fort Myers and Southwest Florida roads"
     />
 
     <section class="py-16 sm:py-20">

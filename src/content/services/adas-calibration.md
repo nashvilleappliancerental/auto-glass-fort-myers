@@ -2,7 +2,7 @@
 title: ADAS Calibration
 order: 3
 icon: crosshair
-image: /images/service.jpg
+image: /images/service-adas-calibration.webp
 summary: Recalibration of windshield-mounted safety cameras after a glass replacement, so lane-keeping and automatic braking aim correctly.
 tagline: New windshield? Your safety cameras need to be re-aimed.
 metaTitle: ADAS Calibration in Fort Myers, FL | Windshield Cameras

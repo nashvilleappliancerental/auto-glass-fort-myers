@@ -2,7 +2,7 @@
 title: Windshield Replacement
 order: 1
 icon: windshield
-image: /images/service.jpg
+image: /images/service-windshield-replacement.webp
 summary: Full windshield replacement with quality glass and proper urethane, done at your home or work, with ADAS recalibration handled.
 tagline: Mobile windshield replacement across Fort Myers and Southwest Florida.
 metaTitle: Windshield Replacement in Fort Myers, FL | FM Auto Glass

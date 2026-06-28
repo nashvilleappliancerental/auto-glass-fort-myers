@@ -2,7 +2,7 @@
 title: Mobile Auto Glass
 order: 6
 icon: truck
-image: /images/service.jpg
+image: /images/service-mobile-auto-glass.webp
 summary: Our whole model. We bring the shop to you, handling repairs, replacements, and calibration at your home, work, or roadside.
 tagline: The shop comes to you. Home, work, or roadside.
 metaTitle: Mobile Auto Glass in Fort Myers, FL | We Come to You

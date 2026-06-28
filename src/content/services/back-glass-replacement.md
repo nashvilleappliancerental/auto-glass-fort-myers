@@ -2,7 +2,7 @@
 title: Back Glass Replacement
 order: 4
 icon: rear-glass
-image: /images/service.jpg
+image: /images/service-back-glass-replacement.webp
 summary: Rear-window replacement including the defroster grid, cleaned up, sealed right, and done at your home or work.
 tagline: Shattered rear window? We replace it and clean up every piece.
 metaTitle: Back Glass Replacement in Fort Myers, FL | Rear Window
