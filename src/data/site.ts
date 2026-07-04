@@ -15,8 +15,8 @@ export const SITE = {
   domain: "autoglassfortmyers.com",
   tagline: "Mobile auto glass & windshield service. We come to you.",
 
-  phone: "(555) 555-5555", // TODO: real booking/dispatch number
-  phoneHref: "tel:+15555555555", // TODO: match real number (digits only)
+  phone: "(239) 217-9715",
+  phoneHref: "tel:+12392179715",
   email: "info@autoglassfortmyers.com",
 
   // LocalBusiness structured data. Mobile/service-area business — no storefront, so
