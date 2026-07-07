@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 470 130">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700;800&amp;display=swap');
+      .eyebrow { font-family: 'Space Grotesk', system-ui, sans-serif; font-weight: 700; letter-spacing: 6px; }
+      .word { font-family: 'Space Grotesk', system-ui, sans-serif; font-weight: 800; letter-spacing: -1px; }
+    </style>
+  </defs>
+  <!-- Horizontal lockup for LIGHT backgrounds -->
+  <g transform="translate(8 20)" fill="none">
+    <path d="M26 32 Q45 27 64 32 L70 60 Q45 66 20 60 Z" stroke="#0F1B2D" stroke-width="2.2" stroke-linejoin="round"/>
+    <path d="M57 32 L59.5 38.5 L66 41 L59.5 43.5 L57 50 L54.5 43.5 L48 41 L54.5 38.5 Z" fill="#2F6BFF" transform="rotate(22.5 57 41)"/>
+  </g>
+  <text class="eyebrow" x="116" y="58" font-size="15" fill="#0F1B2D" fill-opacity="0.6">FORT MYERS</text>
+  <text class="word" x="114" y="100" font-size="46" fill="#0F1B2D">AUTO <tspan fill="#2F6BFF">GLASS</tspan></text>
+</svg>

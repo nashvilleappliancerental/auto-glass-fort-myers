@@ -51,6 +51,12 @@ https://autoglassfortmyers.com.
 - **New guide (2026-07-07):** `/guide/south-florida-auto-glass-scams` — consumer
   alert on the "free windshield" AOB scam (gas-station/door-to-door solicitation),
   with red-flag cards, how-to-protect steps, and NICB/FDACS reporting links.
+- **Logo mark redesigned (2026-07-07):** windshield outline (weight 2.2) + a
+  22.5°-tilted Glass-Blue shine sparkle, replacing the generic square glass-pane
+  placeholder. Applied to `src/components/Logo.astro`, `public/favicon.svg`, and
+  the OG mark in `scripts/make-og.mjs` (regenerated `public/og-image.png`). Full
+  brand kit added in `public/brand/` (horizontal/stacked/reverse lockups, mark
+  PNGs, app-icon, README with hexes + fonts). Palette/fonts unchanged.
 - **Real phone number set: (239) 217-9715** (`site.ts` phone + phoneHref).
 - Git: pushed to `github.com/nashvilleappliancerental/auto-glass-fort-myers`,
   default branch **`main`**.

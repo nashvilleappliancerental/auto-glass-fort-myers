@@ -38,14 +38,10 @@ const svg = `<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http:/
   <rect width="1200" height="630" fill="${C.charcoal}"/>
   <rect width="1200" height="630" fill="url(#glow)"/>
 
-  <!-- Logo mark — glass pane + reflection + shine (B1) -->
+  <!-- Logo mark — windshield outline + tilted shine sparkle -->
   <g transform="translate(80,70) scale(1.25)" fill="none">
-    <rect x="15" y="26" width="52" height="52" rx="11" stroke="${C.cream}" stroke-width="3.4"/>
-    <g stroke="${C.accent}" stroke-width="5" stroke-linecap="round">
-      <path d="M24 68 L44 44"/>
-      <path d="M33 72 L53 48"/>
-    </g>
-    <path d="M70 14 L72.6 19.4 L78 22 L72.6 24.6 L70 30 L67.4 24.6 L62 22 L67.4 19.4 Z" fill="${C.accent}"/>
+    <path d="M26 32 Q45 27 64 32 L70 60 Q45 66 20 60 Z" stroke="${C.cream}" stroke-width="2.6" stroke-linejoin="round"/>
+    <path d="M57 32 L59.5 38.5 L66 41 L59.5 43.5 L57 50 L54.5 43.5 L48 41 L54.5 38.5 Z" fill="${C.accent}" transform="rotate(22.5 57 41)"/>
   </g>
 
   <text x="196" y="140" font-family="Arial, sans-serif" font-size="26" font-weight="700" letter-spacing="3" fill="${C.accent}">${C.eyebrow}</text>

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- App icon: mark on the charcoal brand tile -->
+  <rect width="512" height="512" rx="112" fill="#0F1B2D"/>
+  <g transform="translate(80 80) scale(3.92)" fill="none">
+    <path d="M26 32 Q45 27 64 32 L70 60 Q45 66 20 60 Z" stroke="#EEF4FB" stroke-width="3.4" stroke-linejoin="round"/>
+    <path d="M57 32 L59.5 38.5 L66 41 L59.5 43.5 L57 50 L54.5 43.5 L48 41 L54.5 38.5 Z" fill="#2F6BFF" transform="rotate(22.5 57 41)"/>
+  </g>
+</svg>
