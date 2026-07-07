@@ -1,7 +1,7 @@
 # STATUS — Fort Myers Auto Glass (auto-glass-fort-myers)
 
 > **Read this first.** Single source of truth for where the project stands so any
-> agent or person can jump in. Last updated: 2026-07-04.
+> agent or person can jump in. Last updated: 2026-07-07.
 
 ## ⚠️ Before you end a session — UPDATE THIS FILE
 Any agent or person working on this project **must update `STATUS.md` before
@@ -32,7 +32,10 @@ https://autoglassfortmyers.com.
 - `src/content/locations/` — 6 service-area cities: cape-coral, bonita-springs,
   estero, fort-myers-beach, lehigh-acres, north-fort-myers.
 - `src/pages/guide/` — SEO guide hub: Florida free-windshield-law article,
-  repair-or-replace checker, why-windshields-crack report.
+  repair-or-replace checker, why-windshields-crack report, and the
+  south-florida-auto-glass-scams consumer-alert article.
+- `src/components/ArticleMeta.astro` — reusable byline (author + published/updated
+  dates) shown at the top of guide articles. Author is set in `site.ts` (`AUTHOR`).
 - `netlify.toml` — build config (`npm run build`, publish `dist`).
 - `TEMPLATE_VERSION` in `site.ts` = `b6b73a2` (read by the `upgrade` skill).
 
@@ -41,6 +44,13 @@ https://autoglassfortmyers.com.
   faq, contact, sitemap.
 - Copy humanized; SEO polish (schema, alt text, internal links); real site +
   location photos and Google Maps embeds.
+- **Author bylines added to guides (2026-07-07):** visible author + publish date
+  via `ArticleMeta.astro`; author = **Richard Graham, "Owner"** (set in `site.ts`
+  `AUTHOR` — change the title if his role differs). Article schema `author` is now
+  a `Person` (was `Organization`), publisher stays the Organization.
+- **New guide (2026-07-07):** `/guide/south-florida-auto-glass-scams` — consumer
+  alert on the "free windshield" AOB scam (gas-station/door-to-door solicitation),
+  with red-flag cards, how-to-protect steps, and NICB/FDACS reporting links.
 - **Real phone number set: (239) 217-9715** (`site.ts` phone + phoneHref).
 - Git: pushed to `github.com/nashvilleappliancerental/auto-glass-fort-myers`,
   default branch **`main`**.

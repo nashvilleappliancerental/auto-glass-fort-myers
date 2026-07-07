@@ -44,6 +44,21 @@ export const SITE = {
   rating: { value: "5.0", count: 0 },
 };
 
+// Byline author for guides/articles (visible byline + schema.org Person author).
+// Edit the title if Richard's role differs (e.g. "Lead auto glass technician").
+export const AUTHOR = {
+  name: "Richard Graham",
+  title: "Owner",
+};
+
+// Initials for the byline avatar, derived from the author name ("Richard Graham" -> "RG").
+export const authorInitials = AUTHOR.name
+  .split(" ")
+  .map((w) => w.charAt(0))
+  .join("")
+  .slice(0, 2)
+  .toUpperCase();
+
 export const NAV = [
   { href: "/services", label: "Services" },
   { href: "/service-area", label: "Service Area" },

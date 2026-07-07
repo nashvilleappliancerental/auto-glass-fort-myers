@@ -1,0 +1,38 @@
+---
+import { AUTHOR, authorInitials } from "../data/site";
+
+interface Props {
+  /** ISO date, e.g. "2026-07-07". */
+  published: string;
+  /** ISO date. Only rendered if it differs from `published`. */
+  updated?: string;
+}
+const { published, updated } = Astro.props;
+
+// Anchor to midday so timezone math can't roll the date back a day.
+const fmt = (iso: string) =>
+  new Date(`${iso}T12:00:00`).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+
+const showUpdated = updated && updated !== published;
+---
+
+<div class="flex flex-wrap items-center gap-x-3 gap-y-2 text-sm text-muted-foreground mb-12 pb-6 border-b border-border/60">
+  <span class="inline-flex items-center gap-2.5">
+    <span class="w-9 h-9 rounded-full bg-brand-accent/10 text-brand-accent flex items-center justify-center text-xs font-bold tracking-wide">
+      {authorInitials}
+    </span>
+    <span class="font-bold text-brand-charcoal">{AUTHOR.name}</span>
+  </span>
+  <span class="text-muted-foreground/40" aria-hidden="true">·</span>
+  <time datetime={published}>Published {fmt(published)}</time>
+  {showUpdated && (
+    <Fragment>
+      <span class="text-muted-foreground/40" aria-hidden="true">·</span>
+      <time datetime={updated}>Updated {fmt(updated)}</time>
+    </Fragment>
+  )}
+</div>

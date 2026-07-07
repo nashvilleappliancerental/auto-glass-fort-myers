@@ -1,0 +1,250 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import PageHero from "../../components/PageHero.astro";
+import Icon from "../../components/Icon.astro";
+import ContactSection from "../../components/ContactSection.astro";
+import ArticleMeta from "../../components/ArticleMeta.astro";
+import { SITE, AUTHOR } from "../../data/site";
+
+const title = "The 'Free Windshield' Auto Glass Scam in South Florida (2026)";
+const description =
+  "Someone offers you a free windshield at a gas station or knocks on your door with a gift card. Here's how the South Florida auto glass scam actually works, why locals keep warning about it on Reddit, and how to protect yourself.";
+const pageUrl = `${SITE.url}/guide/south-florida-auto-glass-scams`;
+
+const faqs = [
+  {
+    q: "Is the free windshield offer at gas stations a scam?",
+    a: "Not every offer is fraud, but the parking-lot pitch is the classic setup for one. A legitimate shop does not need to ambush you at a gas pump or knock on your door to earn your business. The honest move is to never sign anything on the spot, never hand your insurance details to a stranger, and call a shop you chose yourself. If the person will not name their company or hand you a real card, that is your answer.",
+  },
+  {
+    q: "What is an AOB and why shouldn't I sign one?",
+    a: "AOB stands for assignment of benefits. It is a form that signs your insurance rights over to the glass company, letting them file the claim, do the work, bill your insurer directly, and even sue in your name. In Florida this was abused for years: shops inflated claims and filed tens of thousands of lawsuits. A 2023 law ended AOBs for auto glass, so any solicitor still pushing a paper for you to sign is a red flag. You never need to sign your benefits away to get a windshield fixed.",
+  },
+  {
+    q: "Didn't Florida pass a law to stop this?",
+    a: "Yes, and it helped. In 2023 the Legislature ended the one-way attorney-fee rule that made these lawsuits profitable and barred glass shops from ending AOBs and offering gifts to get you to sign. Lawsuit volume dropped sharply. But solicitors did not vanish overnight. People across Southwest Florida still report gas-station approaches and door knocks, so the smart play is still to know the pitch and walk away.",
+  },
+  {
+    q: "Someone already replaced my windshield through one of these deals. Am I in trouble?",
+    a: "You are almost certainly a victim here, not a suspect, so do not panic. Gather any paperwork you signed, photos, and the company name if you have it. Call your insurer to flag the claim, and report the shop to the National Insurance Crime Bureau at (800) 835-6422 and the Florida Department of Agriculture and Consumer Services. If the glass or the ADAS calibration was done poorly, have a shop you trust inspect it, because a bad windshield job is a safety issue.",
+  },
+  {
+    q: "How do I report an auto glass scam in Florida?",
+    a: "Report suspected insurance fraud to the National Insurance Crime Bureau at (800) 835-6422 or through their website, and file a complaint about a shady shop with the Florida Department of Agriculture and Consumer Services (the state's consumer-services division). Note down the date, place, any names, a vehicle description, and what they said. The more people report it, the harder it gets for these operators to keep working the same lots.",
+  },
+];
+
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  headline: "The 'Free Windshield' Auto Glass Scam in South Florida",
+  description,
+  datePublished: "2026-07-07",
+  dateModified: "2026-07-07",
+  author: { "@type": "Person", name: AUTHOR.name, jobTitle: AUTHOR.title },
+  publisher: { "@type": "Organization", name: SITE.name, url: SITE.url },
+  mainEntityOfPage: pageUrl,
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: SITE.url },
+    { "@type": "ListItem", position: 2, name: "Guides", item: `${SITE.url}/guide` },
+    { "@type": "ListItem", position: 3, name: "South Florida Auto Glass Scams", item: pageUrl },
+  ],
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((f) => ({
+    "@type": "Question",
+    name: f.q,
+    acceptedAnswer: { "@type": "Answer", text: f.a },
+  })),
+};
+---
+
+<Layout title={title} description={description} schema={[articleSchema, breadcrumbSchema, faqSchema]}>
+  <Header />
+  <main class="pt-20">
+    <PageHero
+      eyebrow="Consumer alert"
+      title="The 'free windshield' scam, and how to spot it here"
+      subtitle="If a stranger offers you a free windshield at a gas station, or knocks on your door with a gift card and a form to sign, keep walking. Here's how the South Florida auto glass hustle works, why locals keep warning each other about it, and how to protect yourself."
+      crumbs={[{ label: "Home", href: "/" }, { label: "Guides", href: "/guide" }, { label: "Auto Glass Scams" }]}
+    />
+
+    <section class="py-16 sm:py-20">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6">
+
+        <ArticleMeta published="2026-07-07" />
+
+        <!-- TL;DR -->
+        <div class="bg-brand-charcoal text-brand-cream rounded-3xl p-7 sm:p-8 mb-12 shadow-sm">
+          <p class="text-brand-accent font-bold uppercase tracking-[0.2em] text-xs mb-3">The short version</p>
+          <p class="text-brand-cream/85 leading-relaxed">
+            A friendly stranger tells you your windshield is damaged and they can replace it for
+            <strong class="text-white">free</strong>, today, just sign here. The catch is what you are signing: your insurance
+            rights. For years this turned into inflated claims and a flood of lawsuits that pushed everyone's premiums up. Florida
+            cracked down in 2023, but the solicitors haven't all gone away. The rule that protects you is simple:
+            <strong class="text-white">never sign anything and never hand your insurance info to someone who approached you.</strong>
+          </p>
+        </div>
+
+        <div class="prose-body">
+          <h2>The pitch, and why it works</h2>
+          <p>
+            It usually starts somewhere ordinary. You're pumping gas, walking out of a store, or dropping the kids somewhere, and
+            someone comes over, points at your windshield, and says they can see a chip or a crack. Good news, they say: they do glass,
+            insurance covers it, it won't cost you a dime, and they can knock it out right now. All they need is a quick signature and
+            your insurance information.
+          </p>
+          <p>
+            It works because a lot of it is true on the surface. Florida really does waive your deductible on windshield damage if you
+            carry comprehensive coverage, so "free" isn't a lie by itself. We wrote the honest version of that in our guide to
+            <a href="/guide/florida-free-windshield-replacement-law">Florida's free windshield law</a>. The scam borrows that real
+            benefit to rush you past the part that matters: what you're actually signing, and who you're handing your insurance to.
+          </p>
+
+          <h2>What you're really signing</h2>
+          <p>
+            The paper is almost always an <strong>assignment of benefits</strong>, or AOB. Sign it and you hand the glass company your
+            insurance rights. They can now file the claim, do the work, bill your insurer directly, and even file a lawsuit in your
+            name, all without checking back with you. In the hands of an honest shop that's just paperwork. In the hands of a bad one,
+            it's the whole business model.
+          </p>
+          <p>
+            Here's how the abuse ran. A shop would sign up drivers, bill the insurer far above a fair rate, and when the insurer pushed
+            back, sue. An old Florida rule called "one-way attorney fees" meant the shop's lawyer could collect fees from the insurer if
+            they won, but the insurer couldn't collect if it won. That's a one-sided bet, and it turned windshields into a lawsuit
+            factory. The numbers tell the story: Florida went from a few hundred auto-glass lawsuits a year early last decade to well
+            over twenty thousand a year by 2021. Those legal costs don't vanish. They get baked into the premiums every driver in the
+            state pays.
+          </p>
+
+          <h2>What Reddit gets right about it</h2>
+          <p>
+            If you search Reddit for Fort Myers, Cape Coral, or Southwest Florida windshields, you'll find the same story told a hundred
+            ways. People describe being approached at gas stations and car washes, getting door knocks and cold calls, and running into
+            folks working the parking lots outside tag offices and big stores. The details rhyme every time: the person won't say what
+            company they're with, they're weirdly insistent your glass is damaged, and there's always a form and a hurry.
+          </p>
+          <p>
+            The local threads are useful for one thing in particular. They're the reminder that this isn't a rare, exotic con. It's a
+            steady, everyday hustle that regular people in our area bump into in normal places. You're not paranoid for saying no. Half
+            your neighbors already have.
+          </p>
+        </div>
+
+        <!-- Red flags grid -->
+        <h2 class="font-display font-extrabold text-2xl sm:text-3xl tracking-tight mt-14 mb-2">Red flags to watch for</h2>
+        <p class="text-muted-foreground mb-8">Any one of these is enough to walk away. Two or more, and it's almost certainly the scam.</p>
+        <div class="grid sm:grid-cols-2 gap-4 mb-14">
+          {[
+            { icon: "x", t: "They approached you", d: "At a gas station, car wash, parking lot, or your front door. Real shops don't need to ambush you." },
+            { icon: "x", t: "No company name", d: "They dodge who they work for, have no business card, and wear nothing with a logo." },
+            { icon: "x", t: "A gift to sign", d: "A gift card, free dinner, or cash offer just for signing a form. That's the bait, and it's now illegal here." },
+            { icon: "x", t: "Sign right now", d: "Pressure to sign on the spot and hand over your insurance details before you've had a second to think." },
+            { icon: "x", t: "Damage you didn't notice", d: "They spot a chip or crack you can't see, or push to replace glass a repair could fix." },
+            { icon: "x", t: "They pick the shop", d: "They steer the whole claim through their own operation and discourage you from choosing your own shop." },
+          ].map((r) => (
+            <div class="bg-white border border-border/60 rounded-2xl p-6 shadow-sm">
+              <div class="flex items-center gap-2.5 mb-2">
+                <span class="w-7 h-7 rounded-lg bg-brand-charcoal/5 flex items-center justify-center shrink-0">
+                  <Icon name={r.icon} class="w-4 h-4 text-brand-charcoal/60" />
+                </span>
+                <h3 class="font-bold tracking-tight">{r.t}</h3>
+              </div>
+              <p class="text-sm text-muted-foreground leading-relaxed">{r.d}</p>
+            </div>
+          ))}
+        </div>
+
+        <div class="prose-body">
+          <h2>How to protect yourself</h2>
+          <ol>
+            <li><strong>Don't sign anything on the spot.</strong> No form, no tablet, no "just initial here." Nothing a stranger hands you needs your signature today.</li>
+            <li><strong>Keep your insurance info to yourself.</strong> Your policy number and insurer are all a bad actor needs to open a claim in your name. Don't give them out to someone who approached you.</li>
+            <li><strong>Remember you pick the shop.</strong> By law the choice of who fixes your glass is yours, no matter who suggests otherwise.</li>
+            <li><strong>Slow the whole thing down.</strong> "I'll handle it with my own insurer" ends the pitch instantly. A real business is fine with that. A scam isn't.</li>
+            <li><strong>Choose a shop yourself and call them.</strong> Look them up, check that they're local and reviewed, and reach out on your terms. When you're ready, <a href="/contact">get a straight quote from us</a>.</li>
+            <li><strong>Report it.</strong> A quick report helps your whole community, and it's easy (details below).</li>
+          </ol>
+
+          <h2>Did Florida actually fix this?</h2>
+          <p>
+            Mostly, and it's worth knowing why. In 2023 the state did two big things. It ended the one-way attorney-fee rule that made
+            the lawsuits so profitable, and it ended assignment-of-benefits for auto glass while barring shops from handing out gifts to
+            get you to sign. Take away the lopsided legal payout and the gift-card bait, and you take away most of the fuel. Lawsuit
+            volume fell hard afterward.
+          </p>
+          <p>
+            But "mostly" isn't "entirely." Court fights over the details carried on into 2024, and enforcement is a moving target. More
+            to the point, laws don't patrol gas stations. The person working a parking lot this week may not know or care what changed in
+            Tallahassee. That's why the practical advice hasn't changed at all: know the pitch, keep your signature and your insurance
+            info to yourself, and pick your own shop.
+          </p>
+
+          <h2>Why it matters even when it's "free"</h2>
+          <p>
+            It's tempting to shrug and think a free windshield is a free windshield, so who cares. Three reasons to care. First, the
+            fraud isn't really free: inflated and bogus claims raise premiums for every driver in Florida, you included. Second, an
+            operator chasing a fast insurance payout has every reason to cut corners on the actual work, and a windshield is a structural
+            safety part of your car, not just a window. Third, if your vehicle has cameras for lane-keeping or automatic braking, it
+            needs <a href="/adas-calibration">ADAS calibration</a> after a
+            <a href="/windshield-replacement">replacement</a>, and skipping that leaves those safety systems aiming at the wrong spot.
+            A cheap-looking win can cost you later.
+          </p>
+          <p>
+            The honest version of all this is boring on purpose. If you've got a chip, our
+            <a href="/guide/windshield-repair-or-replace">repair-or-replace checker</a> tells you in about 30 seconds whether it's a
+            quick fix, and if you're anywhere in <a href="/service-area">Fort Myers and Southwest Florida</a>, we come to you, quote you
+            straight, and let you choose. No parking-lot ambush required.
+          </p>
+        </div>
+
+        <!-- Reporting box -->
+        <div class="mt-10 bg-white border border-border/60 rounded-3xl p-7 shadow-sm">
+          <h3 class="font-bold tracking-tight mb-2">Report an auto glass scam</h3>
+          <p class="text-sm text-muted-foreground leading-relaxed mb-4">
+            Saw a solicitor working a lot, or got pulled into one of these deals? Reporting it takes a few minutes and helps shut them
+            down. Note the date, place, any names, and a vehicle description.
+          </p>
+          <ul class="text-sm space-y-2">
+            <li class="flex gap-2.5"><Icon name="badge-check" class="w-4 h-4 text-brand-accent shrink-0 mt-0.5" /> <span>Insurance fraud: <a href="https://www.nicb.org/" target="_blank" rel="noopener" class="text-brand-accent font-semibold underline underline-offset-4">National Insurance Crime Bureau</a> or call <a href="tel:+18008356422" class="text-brand-accent font-semibold underline underline-offset-4">(800) 835-6422</a></span></li>
+            <li class="flex gap-2.5"><Icon name="badge-check" class="w-4 h-4 text-brand-accent shrink-0 mt-0.5" /> <span>Shady shop: <a href="https://www.fdacs.gov/Consumer-Resources/File-a-Complaint" target="_blank" rel="noopener" class="text-brand-accent font-semibold underline underline-offset-4">Florida Dept. of Agriculture &amp; Consumer Services</a> (1-800-HELP-FLA)</span></li>
+            <li class="flex gap-2.5"><Icon name="badge-check" class="w-4 h-4 text-brand-accent shrink-0 mt-0.5" /> <span>Background on the scam: <a href="https://www.nicb.org/news/blog/auto-glass-scams-continue-be-problem-florida" target="_blank" rel="noopener" class="text-brand-accent font-semibold underline underline-offset-4">NICB: auto glass scams in Florida</a></span></li>
+          </ul>
+        </div>
+
+        <!-- FAQ -->
+        <div class="prose-body mt-16">
+          <h2>Common questions</h2>
+          {faqs.map((f) => (
+            <Fragment>
+              <h3>{f.q}</h3>
+              <p>{f.a}</p>
+            </Fragment>
+          ))}
+
+          <p class="text-sm text-muted-foreground border-t border-border/60 pt-6 mt-10">
+            This is general consumer information for Florida drivers, not legal advice. Laws and enforcement change, and what's covered
+            depends on your policy. If you think you've been targeted, contact your insurer and the agencies above, and
+            <a href="/contact">reach out to us</a> if you'd like an honest second opinion on your glass.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <ContactSection
+      heading="Want a straight, no-pressure windshield quote? We come to you."
+      eyebrow="Free mobile quote"
+    />
+  </main>
+  <Footer />
+</Layout>
