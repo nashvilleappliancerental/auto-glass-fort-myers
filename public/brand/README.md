@@ -14,6 +14,8 @@ for directories, invoices, social profiles, print, etc.
 | `logo-mark.svg` / `.png` | Mark only, **dark** ink — for light backgrounds |
 | `logo-mark-reverse.svg` / `.png` | Mark only, **cream** ink — for dark backgrounds |
 | `app-icon.svg` / `.png` | Mark on the charcoal tile — avatars, app/profile icons, favicons |
+| `fb-profile.png` | 512×512 profile picture (mark on charcoal), safe under a circle crop — Facebook/Google/social avatars |
+| `fb-cover.jpg` | 1640×624 Facebook cover — fleet photo + centered branded lockup |
 
 SVG is preferred everywhere (sharp at any size). PNGs are 512px exports for tools
 that won't take SVG. The wordmark lockups use **Space Grotesk**; if a tool renders
