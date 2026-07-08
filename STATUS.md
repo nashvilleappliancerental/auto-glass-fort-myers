@@ -51,6 +51,13 @@ https://autoglassfortmyers.com.
 - **New guide (2026-07-07):** `/guide/south-florida-auto-glass-scams` — consumer
   alert on the "free windshield" AOB scam (gas-station/door-to-door solicitation),
   with red-flag cards, how-to-protect steps, and NICB/FDACS reporting links.
+- **Social-asset pipeline (2026-07-08):** `scripts/brand.mjs` now holds the shared
+  palette + logo mark (`markInner`) for all generated rasters; `make-og.mjs` imports
+  it (OG output byte-identical after refactor). New `scripts/make-social.mjs` outputs
+  `public/brand/social-avatar.png` (1024, mark + accent glow, circle-crop safe) and
+  `public/brand/fb-cover.jpg` (1640×624, fleet photo + lockup). Ported to the
+  `astro-local-seo-starter` template + documented in the `brand` skill so every future
+  site gets these. (Replaces the earlier hand-made `fb-profile.png`.)
 - **Logo mark redesigned (2026-07-07):** windshield outline (weight 2.2) + a
   22.5°-tilted Glass-Blue shine sparkle, replacing the generic square glass-pane
   placeholder. Applied to `src/components/Logo.astro`, `public/favicon.svg`, and

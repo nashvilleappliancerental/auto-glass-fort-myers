@@ -9,10 +9,9 @@
   <rect width="1200" height="630" fill="#0F1B2D"/>
   <rect width="1200" height="630" fill="url(#glow)"/>
 
-  <!-- Logo mark — windshield outline + tilted shine sparkle -->
-  <g transform="translate(80,70) scale(1.25)" fill="none">
-    <path d="M26 32 Q45 27 64 32 L70 60 Q45 66 20 60 Z" stroke="#EEF4FB" stroke-width="2.6" stroke-linejoin="round"/>
-    <path d="M57 32 L59.5 38.5 L66 41 L59.5 43.5 L57 50 L54.5 43.5 L48 41 L54.5 38.5 Z" fill="#2F6BFF" transform="rotate(22.5 57 41)"/>
+  <!-- Logo mark — windshield outline + tilted shine sparkle (from brand.mjs) -->
+  <g transform="translate(80,70) scale(1.25)">
+    <path d="M26 32 Q45 27 64 32 L70 60 Q45 66 20 60 Z" fill="none" stroke="#EEF4FB" stroke-width="2.6" stroke-linejoin="round"/><path d="M57 32 L59.5 38.5 L66 41 L59.5 43.5 L57 50 L54.5 43.5 L48 41 L54.5 38.5 Z" fill="#2F6BFF" transform="rotate(22.5 57 41)"/>
   </g>
 
   <text x="196" y="140" font-family="Arial, sans-serif" font-size="26" font-weight="700" letter-spacing="3" fill="#2F6BFF">MOBILE WINDSHIELD SERVICE · SOUTHWEST FLORIDA</text>

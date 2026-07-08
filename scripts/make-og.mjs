@@ -5,16 +5,12 @@ import sharp from "sharp";
 import { writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
+import { COLORS, markInner } from "./brand.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 
-// ── BRAND CONFIG (set per site; keep in sync with site.ts + global.css) ──────
+// ── OG COPY (colors + mark come from brand.mjs; set the copy per site) ───────
 const CONFIG = {
-  // Colors — hex approximations of the global.css oklch tokens (Glass Blue).
-  charcoal: "#0F1B2D",
-  accent: "#2F6BFF",
-  accentDark: "#2456CC",
-  cream: "#EEF4FB",
   // Wordmark (mirrors SITE.logo): <top> over <main> <accent>
   headlineTop: "Fort Myers",
   headlineMain: "Auto",
@@ -25,7 +21,7 @@ const CONFIG = {
   domain: "autoglassfortmyers.com",
   cta: "Free Quote",
 };
-const C = CONFIG;
+const C = { ...COLORS, ...CONFIG };
 
 const svg = `<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
   <defs>
@@ -38,10 +34,9 @@ const svg = `<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http:/
   <rect width="1200" height="630" fill="${C.charcoal}"/>
   <rect width="1200" height="630" fill="url(#glow)"/>
 
-  <!-- Logo mark — windshield outline + tilted shine sparkle -->
-  <g transform="translate(80,70) scale(1.25)" fill="none">
-    <path d="M26 32 Q45 27 64 32 L70 60 Q45 66 20 60 Z" stroke="${C.cream}" stroke-width="2.6" stroke-linejoin="round"/>
-    <path d="M57 32 L59.5 38.5 L66 41 L59.5 43.5 L57 50 L54.5 43.5 L48 41 L54.5 38.5 Z" fill="${C.accent}" transform="rotate(22.5 57 41)"/>
+  <!-- Logo mark — windshield outline + tilted shine sparkle (from brand.mjs) -->
+  <g transform="translate(80,70) scale(1.25)">
+    ${markInner({ stroke: C.cream, accent: C.accent, strokeWidth: 2.6 })}
   </g>
 
   <text x="196" y="140" font-family="Arial, sans-serif" font-size="26" font-weight="700" letter-spacing="3" fill="${C.accent}">${C.eyebrow}</text>
