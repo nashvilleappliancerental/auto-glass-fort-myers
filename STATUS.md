@@ -51,6 +51,11 @@ https://autoglassfortmyers.com.
 - **New guide (2026-07-07):** `/guide/south-florida-auto-glass-scams` — consumer
   alert on the "free windshield" AOB scam (gas-station/door-to-door solicitation),
   with red-flag cards, how-to-protect steps, and NICB/FDACS reporting links.
+- **Directory listings pack (2026-07-08):** `LISTINGS.md` (repo root) — copy-paste
+  blocks for directory/social submissions (NAP, categories, tagline, services, FB bio,
+  GBP ≤750 description, rotatable short/medium/long descriptions with char counts).
+  Baked into the process: `copy` skill step 4c writes it, build orchestrator refreshes
+  it after services/locations, and the template ships a `LISTINGS.md` scaffold.
 - **Social-asset pipeline (2026-07-08):** `scripts/brand.mjs` now holds the shared
   palette + logo mark (`markInner`) for all generated rasters; `make-og.mjs` imports
   it (OG output byte-identical after refactor). New `scripts/make-social.mjs` outputs
